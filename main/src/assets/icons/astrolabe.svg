@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="72" height="72" aria-label="Time machine — go back to earlier versions" role="button" class="astrolabe">
+  <defs>
+    <radialGradient id="brass" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#F4D58D"/>
+      <stop offset="55%" stop-color="#C8A25B"/>
+      <stop offset="100%" stop-color="#8B6A2F"/>
+    </radialGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E8C77A"/>
+      <stop offset="100%" stop-color="#7A5720"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- outer rim -->
+  <circle cx="100" cy="100" r="94" fill="none" stroke="url(#rim)" stroke-width="3"/>
+  <circle cx="100" cy="100" r="88" fill="url(#brass)" opacity="0.9"/>
+
+  <!-- rotating outer ring with tick marks -->
+  <g class="ring-outer">
+    <circle cx="100" cy="100" r="84" fill="none" stroke="#3E2E14" stroke-width="1" opacity="0.6"/>
+    <g stroke="#3E2E14" stroke-width="1.2" opacity="0.75">
+      <!-- 24 tick marks around the circle -->
+      <line x1="100" y1="12" x2="100" y2="20"/>
+      <line x1="100" y1="180" x2="100" y2="188"/>
+      <line x1="12" y1="100" x2="20" y2="100"/>
+      <line x1="180" y1="100" x2="188" y2="100"/>
+      <line x1="30" y1="30" x2="36" y2="36"/>
+      <line x1="164" y1="164" x2="170" y2="170"/>
+      <line x1="30" y1="170" x2="36" y2="164"/>
+      <line x1="164" y1="36" x2="170" y2="30"/>
+      <line x1="55" y1="18" x2="58" y2="26"/>
+      <line x1="145" y1="18" x2="142" y2="26"/>
+      <line x1="55" y1="182" x2="58" y2="174"/>
+      <line x1="145" y1="182" x2="142" y2="174"/>
+      <line x1="18" y1="55" x2="26" y2="58"/>
+      <line x1="182" y1="55" x2="174" y2="58"/>
+      <line x1="18" y1="145" x2="26" y2="142"/>
+      <line x1="182" y1="145" x2="174" y2="142"/>
+    </g>
+  </g>
+
+  <!-- rotating middle ring (rete) with cutouts -->
+  <g class="ring-mid" transform-origin="100 100">
+    <circle cx="100" cy="100" r="66" fill="none" stroke="#4A3418" stroke-width="1.5" opacity="0.75"/>
+    <!-- decorative cutout arms -->
+    <path d="M100 40 L108 100 L100 160 L92 100 Z" fill="#8B6A2F" opacity="0.5"/>
+    <path d="M40 100 L100 92 L160 100 L100 108 Z" fill="#8B6A2F" opacity="0.5"/>
+    <!-- star pointer -->
+    <circle cx="100" cy="46" r="4" fill="#F5E7BC" filter="url(#glow)"/>
+    <circle cx="154" cy="100" r="3" fill="#E8C77A"/>
+    <circle cx="100" cy="154" r="3" fill="#E8C77A"/>
+    <circle cx="46" cy="100" r="3" fill="#E8C77A"/>
+  </g>
+
+  <!-- rotating inner disc with Islamic-star cutout -->
+  <g class="ring-inner" transform-origin="100 100">
+    <circle cx="100" cy="100" r="42" fill="#5A3F1B" opacity="0.9"/>
+    <!-- 8-point star (rub el hizb — Islamic golden-age motif) -->
+    <path d="M100 65 L112 88 L135 100 L112 112 L100 135 L88 112 L65 100 L88 88 Z"
+          fill="url(#brass)" stroke="#3E2E14" stroke-width="1" opacity="0.9"/>
+    <circle cx="100" cy="100" r="6" fill="#F5E7BC" filter="url(#glow)"/>
+  </g>
+
+  <!-- fixed center hub -->
+  <circle cx="100" cy="100" r="4" fill="#2A1E0A"/>
+
+  <style>
+    .astrolabe { cursor: pointer; }
+    .ring-outer { transform-origin: 100px 100px; animation: spin-slow 60s linear infinite; }
+    .ring-mid { animation: spin-mid 40s linear infinite reverse; }
+    .ring-inner { animation: spin-fast 20s linear infinite; }
+    .astrolabe:hover .ring-outer { animation-duration: 8s; }
+    .astrolabe:hover .ring-mid { animation-duration: 5s; }
+    .astrolabe:hover .ring-inner { animation-duration: 3s; }
+    @keyframes spin-slow { to { transform: rotate(360deg); } }
+    @keyframes spin-mid  { to { transform: rotate(360deg); } }
+    @keyframes spin-fast { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) {
+      .ring-outer, .ring-mid, .ring-inner { animation: none; }
+    }
+  </style>
+</svg>
