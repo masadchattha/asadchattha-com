@@ -1,0 +1,86 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Muhammad Asad — Senior iOS Engineer',
+  description = 'Senior iOS Engineer with 16 apps on the App Store. Swift, SwiftUI, Screen Time API, HealthKit, StoreKit 2, on-device machine learning, AR, and blockchain dApps. MVP specialist for startups and product teams.',
+} = Astro.props;
+
+const personSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Muhammad Asad',
+  jobTitle: 'Senior iOS Engineer',
+  url: 'https://asadchattha.com',
+  sameAs: [
+    'https://github.com/masadchattha',
+    'https://www.linkedin.com/in/masadchattha/',
+    'https://x.com/masadchattha',
+    'https://www.instagram.com/masadchattha',
+    'https://asadchatha.medium.com/',
+    'https://apps.apple.com/us/developer/muhammad-asad/id1705565997',
+  ],
+  knowsAbout: [
+    'iOS Development', 'Swift', 'SwiftUI', 'UIKit', 'Objective-C', 'Screen Time API',
+    'Family Controls', 'HealthKit', 'Apple Watch', 'StoreKit 2',
+    'In-App Subscriptions', 'CoreML', 'On-Device Machine Learning',
+    'Computer Vision', 'KYC and Identity Verification', 'Augmented Reality',
+    'Blockchain', 'dApps', 'VoIP', 'End-to-End Encryption',
+    'MapKit', 'Core NFC', 'Bluetooth LE', 'Tap to Pay', 'Apple Pay', 'Fintech',
+    'AVFoundation', 'Media Playback', 'Core Motion', 'Fitness Apps',
+    'Mobile App Performance', 'User Retention', 'MVP Development',
+  ],
+});
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://asadchattha.com" />
+    <meta property="og:image" content="https://asadchattha.com/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@masadchattha" />
+    <meta name="twitter:image" content="https://asadchattha.com/og.png" />
+
+    <title>{title}</title>
+
+    <script type="application/ld+json" set:html={personSchema} />
+  </head>
+  <body class="bg-slate-900 leading-relaxed text-slate-400 antialiased selection:bg-teal-300 selection:text-teal-900">
+    <a href="#content" class="skip-link">Skip to content</a>
+
+    <!-- Her verbatim spotlight: exact classes + inline gradient string updated by JS -->
+    <div id="spotlight" class="pointer-events-none fixed inset-0 z-30 transition duration-300 lg:absolute" aria-hidden="true" style="background: radial-gradient(600px at 0px 0px, rgba(29, 78, 216, 0.15), transparent 80%)"></div>
+
+    <slot />
+
+    <script is:inline>
+      // Her exact approach: rewrite the inline gradient string on every mousemove.
+      // Desktop (lg): document coords (pageX/pageY) since the div is absolute there.
+      const spotlightEl = document.getElementById('spotlight');
+      const lgQuery = window.matchMedia('(min-width: 1024px)');
+      document.body.addEventListener('mousemove', (e) => {
+        const x = lgQuery.matches ? e.pageX : e.clientX;
+        const y = lgQuery.matches ? e.pageY : e.clientY;
+        spotlightEl.style.background = `radial-gradient(600px at ${x}px ${y}px, rgba(29, 78, 216, 0.15), transparent 80%)`;
+      }, { passive: true });
+    </script>
+  </body>
+</html>
