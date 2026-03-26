@@ -1,0 +1,234 @@
+---
+import astrolabeSvg from '../assets/icons/astrolabe.svg?raw';
+
+const versions = [
+  { v: 'v1', href: '/', label: 'asadchattha.com version 1 — you are here', current: true },
+  { v: 'v2', current: false },
+  { v: 'v3', current: false },
+  { v: 'v4', current: false },
+];
+---
+
+<!-- Trigger — bottom-right of page content, her exact TARDIS pattern with the astrolabe -->
+<div class="absolute bottom-0 right-0">
+  <button
+    id="tm-trigger"
+    class="inline-flex items-center px-2 py-4 font-medium text-slate-400 transition hover:-translate-y-2 hover:text-teal-300"
+    aria-haspopup="dialog"
+  >
+    <span class="sr-only">Click to time travel</span>
+    <span class="tm-astrolabe" aria-hidden="true">
+      <Fragment set:html={astrolabeSvg} />
+    </span>
+  </button>
+</div>
+
+<!-- Dialog — her exact portal structure -->
+<div id="tm-root" hidden>
+  <!-- Overlay: portal gradient + wobbling orb rings -->
+  <div id="tm-overlay" class="portal fixed left-0 top-0 z-40 h-screen w-screen bg-slate-900/10 backdrop-blur transition">
+    <div class="portal-inner">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+
+  <!-- Content: full-screen, centered, skewed grid -->
+  <div id="tm-content" class="fixed left-1/2 top-1/2 z-40 flex h-full w-full -translate-x-1/2 -translate-y-1/2 justify-center rounded sm:items-center" role="dialog" aria-modal="true" aria-labelledby="tm-title">
+    <button id="tm-close" class="absolute right-0 top-0 z-50 p-4 text-slate-400 hover:text-slate-200 focus-visible:text-slate-200" aria-label="Close">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="h-6 w-6" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+
+    <div style="perspective: 400px;">
+      <div class="star-wars-skew">
+        <h2 id="tm-title" class="mx-auto mb-12 max-w-xs text-center text-2xl font-semibold leading-tight tracking-tight text-slate-700 sm:text-3xl lg:max-w-md lg:text-4xl">
+          Looking for a different site? Go back in time...
+        </h2>
+        <div class="flex justify-center">
+          <ul class="inline-grid grid-cols-1 gap-2 md:grid-cols-2" aria-label="Previous iterations of asadchattha.com">
+            {versions.map((ver) => (
+              <li>
+                {ver.current ? (
+                  <a class="group relative block transition-all" href={ver.href} aria-label={ver.label}>
+                    <img src="/images/v1.png" alt="Screenshot of asadchattha.com version 1" loading="lazy" width="150" height="94" class="tm-shot-img mx-auto rounded border-2 border-zinc-900/30 drop-shadow-md group-hover:drop-shadow-xl" />
+                    <div class="absolute left-0 top-0 hidden h-full w-full items-center justify-center rounded border-4 border-teal-400/0 bg-zinc-900/30 align-middle opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 lg:flex">
+                      <h3 class="not-sr-only text-xl font-semibold text-white">{ver.v}</h3>
+                    </div>
+                  </a>
+                ) : (
+                  <div class="group relative block" aria-label={`${ver.v} coming soon`}>
+                    <div class="tm-shot tm-shot-soon mx-auto flex items-center justify-center rounded border-2 border-zinc-900/30 drop-shadow-md">
+                      <span class="tm-shot-soon-label">Coming soon</span>
+                    </div>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <a class="absolute inset-x-0 bottom-0 z-40 block p-8 text-center text-xs text-slate-500 underline hover:text-slate-200 focus-visible:text-slate-200 sm:left-auto md:p-4" href="https://codepen.io/jasesmith/pen/qqgvZe" target="_blank" rel="noreferrer noopener" aria-label="Credit: A Portal to Tomorrow by @jasesmith (opens CodePen in a new tab)">A Portal to Tomorrow by @jasesmith</a>
+  </div>
+</div>
+
+<style>
+  /* ============ Astrolabe trigger — TARDIS-style 3D tumble + float ============ */
+  .tm-astrolabe {
+    display: block;
+    width: 84px;
+    height: 84px;
+    perspective: 300px;
+    animation: tm-float 4s ease-in-out infinite;
+  }
+
+  .tm-astrolabe :global(svg) {
+    width: 100%;
+    height: 100%;
+    display: block;
+    animation: tm-tumble 9s linear infinite;
+  }
+
+  /* Inner rings keep their own spin — layered motion like the tardis */
+  .tm-astrolabe :global(.ring-outer),
+  .tm-astrolabe :global(.ring-mid),
+  .tm-astrolabe :global(.ring-inner) { transform-origin: 100px 100px; }
+  .tm-astrolabe :global(.ring-outer) { animation: tm-spin 30s linear infinite; }
+  .tm-astrolabe :global(.ring-mid)   { animation: tm-spin 18s linear infinite reverse; }
+  .tm-astrolabe :global(.ring-inner) { animation: tm-spin 9s linear infinite; }
+
+  #tm-trigger:hover .tm-astrolabe :global(svg) { animation-duration: 3s; }
+  #tm-trigger:hover .tm-astrolabe { animation-duration: 1.8s; }
+
+  @keyframes tm-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* Full-body 3D tumble around the Y axis with a slight tilt */
+  @keyframes tm-tumble {
+    0%   { transform: rotate(-8deg) rotateY(0turn); }
+    100% { transform: rotate(-8deg) rotateY(1turn); }
+  }
+
+  /* Gentle bob, like the tardis drifting through spacetime */
+  @keyframes tm-float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-7px); }
+  }
+
+  /* ============ Portal orb — exact from brittanychiang.com computed CSS
+     (original: "A Portal to Tomorrow" by @jasesmith, codepen.io/jasesmith/pen/qqgvZe) ============ */
+  .portal {
+    background: radial-gradient(circle at 50% 35%, rgb(51, 68, 85), rgba(0, 0, 0, 0.7));
+  }
+
+  /* Her mobile trick: translating .portal-inner makes it the containing block
+     for the absolute rings (390x0 box), so top:50%/left:50% collapse the orb
+     to the top of the screen where the content sits. Desktop: no transform,
+     rings resolve against the fixed overlay = screen center. */
+  .portal-inner {
+    transform: translateY(170px);
+  }
+  @media (min-width: 640px) {
+    .portal-inner { transform: none; }
+  }
+
+  .portal .portal-inner div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(var(--x, -50%), var(--y, -50%)) rotate(0deg);
+    font-size: 20vmin;
+    width: 3.5em;
+    height: 3.5em;
+    border-radius: 90% 95% 85% 105%;
+    background: rgb(0, 255, 0);
+    mix-blend-mode: screen;
+    filter: hue-rotate(0deg);
+    animation: tm-wobble calc(0.15s * var(--t)) linear infinite;
+    box-shadow: rgb(0, 0, 0) 0 0 0.5em 0.2em inset, rgb(255, 255, 255) 0 0 0.15em 0;
+  }
+
+  .portal .portal-inner div:first-child  { --x: -53%; --y: -53%; --t: 37; }
+  .portal .portal-inner div:nth-child(2) { --x: -47%; --y: -52%; --t: 58; }
+  .portal .portal-inner div:nth-child(3) { --x: -45%; --y: -50%; --t: 46; }
+  .portal .portal-inner div:nth-child(4) { --x: -53%; --y: -45%; --t: 72; }
+  .portal .portal-inner div:nth-child(5) { --x: -55%; --y: -45%; --t: 62; }
+
+  @keyframes tm-wobble {
+    100% {
+      filter: hue-rotate(1turn);
+      transform: translate(var(--x), var(--y)) rotate(1turn);
+    }
+  }
+
+  /* ============ Star Wars skew — decoded from her matrix3d:
+     rotateX(25deg) translateZ(100px) under parent perspective 400px ============ */
+  .star-wars-skew {
+    transform: rotateX(25deg) translateZ(100px);
+  }
+  /* Mobile: push content down so the projected title lands inside the orb
+     (~y115) like hers, instead of clipping above the viewport */
+  @media (max-width: 639px) {
+    .star-wars-skew { margin-top: 137px; }
+  }
+
+  /* ============ Version tiles (placeholder frames until screenshots exist;
+     same footprint as her 180x48-ratio screenshots scaled up) ============ */
+  /* Sized to her tile-to-orb ratio so the grid stays inside the bright core.
+     Mobile: smaller width so post-projection footprint matches her ~160px strips. */
+  .tm-shot,
+  .tm-shot-img {
+    width: 120px;
+    aspect-ratio: 16 / 10;
+  }
+  .tm-shot { background: rgba(148, 163, 184, 0.35); }
+  .tm-shot-img { object-fit: cover; height: auto; }
+  @media (min-width: 640px) {
+    .tm-shot,
+    .tm-shot-img { width: 150px; }
+  }
+  .tm-shot-soon { opacity: 0.8; }
+  .tm-shot-soon-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    color: rgb(71, 85, 105);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tm-astrolabe,
+    .tm-astrolabe :global(svg),
+    .tm-astrolabe :global(.ring-outer),
+    .tm-astrolabe :global(.ring-mid),
+    .tm-astrolabe :global(.ring-inner),
+    .portal .portal-inner div { animation: none; }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const trigger = document.getElementById('tm-trigger');
+    const root = document.getElementById('tm-root');
+    const overlay = document.getElementById('tm-overlay');
+    const closeBtn = document.getElementById('tm-close');
+    const content = document.getElementById('tm-content');
+
+    const open = () => { root.hidden = false; document.body.style.overflow = 'hidden'; };
+    const close = () => { root.hidden = true; document.body.style.overflow = ''; };
+
+    trigger.addEventListener('click', open);
+    closeBtn.addEventListener('click', close);
+    content.addEventListener('click', (e) => { if (e.target === content) close(); });
+    overlay.addEventListener('click', close);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !root.hidden) close(); });
+
+    if (location.hash === '#tm') open();
+  })();
+</script>
