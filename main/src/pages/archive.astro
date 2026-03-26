@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const archive = [
+  { year: '2026', project: 'Peptify', madeAt: 'Personal', builtWith: ['SwiftUI', 'HealthKit', 'Vision / OCR'], url: 'https://apps.apple.com/us/app/peptify-peptide-tracker/id6760272148', label: 'App Store' },
+  { year: '2026', project: 'Athanify', madeAt: 'Personal', builtWith: ['SwiftUI', 'CoreLocation', 'Local Notifications'], url: 'https://apps.apple.com/app/athanify/id6759103699', label: 'App Store' },
+  { year: '2026', project: 'Shelly', madeAt: 'Client work', builtWith: ['Family Controls', 'DeviceActivityMonitor', 'WidgetKit'], url: 'https://apps.apple.com/us/app/shelly-screen-time-control/id6757734582', label: 'App Store' },
+  { year: '2025', project: 'Foqos', madeAt: 'o9 Tech', builtWith: ['SwiftUI', 'Core NFC', 'Family Controls'], url: 'https://apps.apple.com/us/app/foqos/id6736793117', label: 'App Store' },
+  { year: '2025', project: 'Votari', madeAt: 'Coder Crew LLC', builtWith: ['Swift', 'Bitcoin SV', 'Cryptographic Verification'], url: 'https://apps.apple.com/us/app/votari/id6748386729', label: 'App Store' },
+  { year: '2025', project: 'Chapter', madeAt: 'o9 Tech', builtWith: ['Screen Time API', 'Habit Engine', 'Gamification'], url: 'https://apps.apple.com/us/app/chapter-replace-a-bad-habit/id6757711400', label: 'App Store' },
+  { year: '2025', project: 'Fonder Cards', madeAt: 'o9 Tech', builtWith: ['WidgetKit', 'Real-time Shared State', 'Streak Engine'], url: 'https://apps.apple.com/app/id6757206838', label: 'App Store' },
+  { year: '2025', project: 'Bright Start', madeAt: 'o9 Tech', builtWith: ['Camera / Light Sensing', 'Family Controls'], url: 'https://apps.apple.com/us/app/id6745139907', label: 'App Store' },
+  { year: '2024', project: 'HiiKER', madeAt: 'o9 Tech', builtWith: ['Swift', 'MapKit', 'Offline Tiles'], url: 'https://apps.apple.com/us/app/hiiker-the-hiking-maps-app/id1470810597', label: 'App Store' },
+  { year: '2024', project: 'Block', madeAt: 'o9 Tech', builtWith: ['Core NFC', 'Family Controls', 'Focus Mode'], url: 'https://apps.apple.com/us/app/id6752846663', label: 'App Store' },
+  { year: '2023', project: 'Focus Bear', madeAt: 'o9 Tech', builtWith: ['Swift', 'HealthKit', 'Apple Watch'], url: 'https://apps.apple.com/us/app/focus-bear/id1673296334', label: 'App Store' },
+  { year: '2023', project: 'Going Solo', madeAt: 'Coder Crew LLC', builtWith: ['Swift', 'Firebase', 'CoreLocation'], url: 'https://apps.apple.com/us/app/going-solo-travel-friends/id1671515758', label: 'App Store' },
+  { year: '2023', project: '1st-Response', madeAt: 'Pryvate Technologies', builtWith: ['AVFoundation', 'Offline-first', 'Secure Upload'], url: 'https://apps.apple.com/us/app/id1663503501', label: 'App Store' },
+  { year: '2022', project: 'Officetree', madeAt: 'Pryvate Technologies', builtWith: ['Swift', 'VoIP/SIP', 'Stripe', 'Apple Pay'], url: 'https://apps.apple.com/us/app/id6444354321', label: 'App Store' },
+  { year: '2023', project: 'iOS Development using UIKit (book)', madeAt: 'Personal', builtWith: ['UIKit', 'Apple Books', '243 pages'], url: 'https://books.apple.com/us/book/id6448717308', label: 'Apple Books' },
+  { year: '2021', project: 'Pryvate Messenger', madeAt: 'Pryvate Technologies', builtWith: ['Objective-C', 'Swift', 'RSA 4096', 'ZRTP'], url: 'https://apps.apple.com/us/app/pryvate-messenger/id914948581', label: 'App Store' },
+];
+---
+
+<Layout title="Archive — Muhammad Asad" description="A big list of every iOS app and project Muhammad Asad has shipped.">
+  <div class="mx-auto min-h-screen max-w-screen-xl px-6 py-12 font-sans md:px-12 md:py-20 lg:px-24 lg:py-20">
+    <main id="content">
+      <a class="group mb-2 inline-flex items-center font-semibold leading-tight text-teal-300" href="/">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="mr-1 h-4 w-4 rotate-180 transition-transform group-hover:-translate-x-2" aria-hidden="true"><path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd"></path></svg>
+        Muhammad Asad
+      </a>
+      <h1 class="text-4xl font-bold tracking-tight text-slate-200 sm:text-5xl">All Projects</h1>
+
+      <table class="mt-12 w-full border-collapse text-left">
+        <thead class="sticky top-0 z-10 border-b border-slate-300/10 bg-slate-900/75 px-6 py-5 backdrop-blur">
+          <tr>
+            <th class="py-4 pr-8 text-sm font-semibold text-slate-200">Year</th>
+            <th class="py-4 pr-8 text-sm font-semibold text-slate-200">Project</th>
+            <th class="hidden py-4 pr-8 text-sm font-semibold text-slate-200 lg:table-cell">Made at</th>
+            <th class="hidden py-4 pr-8 text-sm font-semibold text-slate-200 lg:table-cell">Built with</th>
+            <th class="hidden py-4 pr-8 text-sm font-semibold text-slate-200 sm:table-cell">Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          {archive.map((item) => (
+            <tr class="border-b border-slate-300/10 last:border-none">
+              <td class="py-4 pr-4 align-top text-sm">
+                <div class="translate-y-px">{item.year}</div>
+              </td>
+              <td class="py-4 pr-4 align-top font-semibold leading-snug text-slate-200">
+                <div>
+                  <div class="block sm:hidden">
+                    <a class="inline-flex items-baseline font-medium leading-tight text-slate-200 hover:text-teal-300 focus-visible:text-teal-300 sm:hidden group/link text-base" href={item.url} target="_blank" rel="noreferrer noopener" aria-label={`${item.project} (opens in a new tab)`}>
+                      <span>
+                        {item.project}
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="inline-block h-4 w-4 shrink-0 transition-transform group-hover/link:-translate-y-1 group-hover/link:translate-x-1 group-focus-visible/link:-translate-y-1 group-focus-visible/link:translate-x-1 motion-reduce:transition-none ml-1 translate-y-px" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"></path></svg>
+                      </span>
+                    </a>
+                  </div>
+                  <div class="hidden sm:block">{item.project}</div>
+                </div>
+              </td>
+              <td class="hidden py-4 pr-4 align-top text-sm lg:table-cell">
+                <div class="translate-y-px whitespace-nowrap">{item.madeAt}</div>
+              </td>
+              <td class="hidden py-4 pr-4 align-top lg:table-cell">
+                <ul class="flex -translate-y-1.5 flex-wrap">
+                  {item.builtWith.map((tech) => (
+                    <li class="my-1 mr-1.5">
+                      <div class="flex items-center rounded-full bg-teal-400/10 px-3 py-1 text-xs font-medium leading-5 text-teal-300">{tech}</div>
+                    </li>
+                  ))}
+                </ul>
+              </td>
+              <td class="hidden py-4 align-top sm:table-cell">
+                <ul class="translate-y-1">
+                  <li class="mb-1 flex items-center">
+                    <a class="inline-flex items-baseline font-medium leading-tight text-slate-400 hover:text-teal-300 focus-visible:text-teal-300 group/link text-sm" href={item.url} target="_blank" rel="noreferrer noopener" aria-label={`${item.label} (opens in a new tab)`}>
+                      <span>
+                        {item.label}
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="inline-block h-4 w-4 shrink-0 transition-transform group-hover/link:-translate-y-1 group-hover/link:translate-x-1 group-focus-visible/link:-translate-y-1 group-focus-visible/link:translate-x-1 motion-reduce:transition-none ml-1 translate-y-px" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"></path></svg>
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </main>
+  </div>
+</Layout>
