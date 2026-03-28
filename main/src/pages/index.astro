@@ -60,6 +60,7 @@ const navItems = [
 const projects = [
   {
     name: 'Athanify',
+    image: '/images/projects/athanify.png',
     url: 'https://athanify.com',
     description:
       'Muslim prayer companion with a mercy-first voice. Adhan times, Qibla, and Screen Time shields that silence distracting apps at prayer times. Designed around compassion instead of streak shame.',
@@ -68,6 +69,7 @@ const projects = [
   },
   {
     name: 'Foqos',
+    image: '/images/projects/foqos.png',
     url: 'https://apps.apple.com/us/app/foqos/id6736793117',
     description:
       'NFC-triggered focus lockdowns built on Family Controls. Tap a physical tag or scan a QR code to shield distracting apps via focus profiles with schedules and usage insights.',
@@ -76,6 +78,7 @@ const projects = [
   },
   {
     name: 'HiiKER',
+    image: '/images/projects/hiiker.png',
     url: 'https://apps.apple.com/us/app/hiiker-the-hiking-maps-app/id1470810597',
     description:
       'Hiking maps serving 130,000+ trails with offline tile caching and Mountain Rescue Team integrations across Ireland, the UK, and the US.',
@@ -84,6 +87,7 @@ const projects = [
   },
   {
     name: 'Pryvate Messenger',
+    image: '/images/projects/pryvate-messenger.png',
     url: 'https://apps.apple.com/us/app/pryvate-messenger/id914948581',
     description:
       'E2E encrypted calls and messaging with RSA 4096 and Post-Quantum ZRTP, running in 50+ countries under HIPAA and GDPR.',
@@ -92,12 +96,14 @@ const projects = [
   },
   {
     name: 'Votari',
+    image: '/images/projects/votari.png',
     url: 'https://apps.apple.com/us/app/votari/id6748386729',
     description:
       'Blockchain election infrastructure on Bitcoin SV. Biometric passport verification, Merkle-tree ballot proofs, and cryptographic auditability at 100,000+ ballot scale.',
   },
   {
     name: 'Focus Bear',
+    image: '/images/projects/focus-bear.png',
     url: 'https://apps.apple.com/us/app/focus-bear/id1673296334',
     description:
       'ADHD productivity app with habit routines, Apple Watch complications, and HealthKit integration across iPhone, iPad, and Apple Watch.',
@@ -106,6 +112,7 @@ const projects = [
   },
   {
     name: 'Peptify',
+    image: '/images/projects/peptify.png',
     url: 'https://apps.apple.com/us/app/peptify-peptide-tracker/id6760272148',
     description:
       'On-device medical tracker for peptide protocols: dose logging, vial inventory, bloodwork scanning, and body-composition tracking. Privacy-first with no cloud sync.',
@@ -114,6 +121,7 @@ const projects = [
   },
   {
     name: 'Going Solo',
+    image: '/images/projects/going-solo.png',
     url: 'https://apps.apple.com/us/app/going-solo-travel-friends/id1671515758',
     description:
       'Social travel app with real-time chat and location-based matching for solo travelers finding companions on the road.',
@@ -391,10 +399,7 @@ const jobs = [
                       </a>
                     )}
                   </div>
-                  <!-- Placeholder thumbnail — swap div for <img class="aspect-video object-cover rounded border-2 border-slate-200/10 transition group-hover:border-slate-200/30 sm:order-1 sm:col-span-2 sm:translate-y-1" width="200" height="48"> when screenshots ready -->
-                  <div class="aspect-video rounded border-2 border-slate-200/10 transition group-hover:border-slate-200/30 sm:order-1 sm:col-span-2 sm:translate-y-1 bg-slate-800 flex items-center justify-center">
-                    <span class="text-[10px] font-semibold uppercase tracking-widest text-slate-500">{project.name}</span>
-                  </div>
+                  <img src={project.image} alt={`${project.name} app on iPhone`} loading="lazy" width="640" height="400" class="aspect-video object-cover rounded border-2 border-slate-200/10 transition group-hover:border-slate-200/30 sm:order-1 sm:col-span-2 sm:translate-y-1" />
                 </div>
               </li>
             ))}
