@@ -82,6 +82,36 @@ body {
 }
 
 /* ============================================
+   AI terminal — lines type in on scroll, caret blinks
+   ============================================ */
+.ai-line {
+  opacity: 0;
+  animation: ai-type-in 0.4s ease-out forwards;
+  animation-delay: calc(0.55s * var(--i, 0));
+}
+
+@keyframes ai-type-in {
+  from { opacity: 0; transform: translateY(3px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.ai-caret {
+  display: inline-block;
+  width: 7px;
+  height: 0.9em;
+  margin-left: 6px;
+  vertical-align: text-bottom;
+  background: rgb(94 234 212);
+  animation: ai-blink 1.1s step-end infinite;
+  animation-delay: calc(0.55s * 6);
+}
+
+@keyframes ai-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ============================================
    Reduced motion
    ============================================ */
 @media (prefers-reduced-motion: reduce) {
