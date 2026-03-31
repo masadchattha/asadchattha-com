@@ -54,6 +54,7 @@ const writings = [
 
 const navItems = [
   { id: 'about', label: 'About' },
+  { id: 'ai', label: 'AI' },
   { id: 'experience', label: 'Experience' },
   { id: 'projects', label: 'Projects' },
   { id: 'publication', label: 'Publication' },
@@ -134,6 +135,16 @@ const projects = [
 ];
 
 const jobs = [
+  {
+    range: '2024 — Present',
+    ariaRange: '2024 to Present',
+    title: 'Independent iOS Engineer',
+    company: 'Freelance, Remote',
+    url: 'https://calendly.com/m-asad-dev/ios-apps-consultation',
+    description:
+      'Client work alongside full-time roles: Screen Time control apps built end to end, App Store rejection rescues, StoreKit 2 subscription and paywall builds, and native module fixes inside React Native apps. Backends on Firebase and Supabase, AI features with OpenAI and on-device LLMs. Every completed contract rated 5.0. I also ship my own products, Athanify and Plant Health.',
+    tags: ['Family Controls', 'StoreKit 2', 'SwiftUI', 'Firebase', 'Supabase', 'OpenAI'],
+  },
   {
     range: '2023 — Present',
     ariaRange: '2023 to Present',
@@ -319,6 +330,33 @@ const jobs = [
             </span>,
             chasing the next idea worth building.
           </p>
+        </section>
+
+        <section id="ai" class="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24" aria-label="AI-assisted engineering">
+          <div class="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-slate-900/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
+            <h2 class="text-sm font-bold uppercase tracking-widest text-slate-200 lg:sr-only">AI</h2>
+          </div>
+          <div>
+            <p class="mb-4">
+              I build with AI agents every day. <span class="font-medium text-slate-200">Claude Code</span> drives my scaffolding, test generation, and release pipelines, working from specs I write against the architecture, and I review every line before it ships. It is not a shortcut. It is how a solo engineer moves at team speed without giving up code quality.
+            </p>
+            <div class="ai-terminal mt-6 rounded-lg border border-slate-200/10 bg-slate-800/50 shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)]">
+              <div class="flex items-center gap-1.5 border-b border-slate-200/10 px-4 py-3">
+                <span class="h-2.5 w-2.5 rounded-full bg-red-400/60"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-yellow-400/60"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-green-400/60"></span>
+                <span class="ml-3 font-mono text-xs text-slate-500">zsh — claude</span>
+              </div>
+              <div class="px-4 py-4 font-mono text-xs leading-relaxed sm:text-sm">
+                <p class="ai-line" style="--i: 0"><span class="text-teal-300">$</span> <span class="text-slate-300">claude "add Screen Time shields that follow prayer times"</span></p>
+                <p class="ai-line text-slate-400" style="--i: 1"><span class="text-teal-400">✔</span> Planned 5 tasks, Family Controls entitlement verified</p>
+                <p class="ai-line text-slate-400" style="--i: 2"><span class="text-teal-400">✔</span> DeviceActivityMonitor schedule wired to Maghrib</p>
+                <p class="ai-line text-slate-400" style="--i: 3"><span class="text-teal-400">✔</span> Shield UI themed, 14 tests passing</p>
+                <p class="ai-line" style="--i: 4"><span class="text-teal-300">$</span> <span class="text-slate-300">git push origin feature/prayer-shields</span></p>
+                <p class="ai-line text-slate-500" style="--i: 5">Review, refine, ship. Same day.<span class="ai-caret" aria-hidden="true"></span></p>
+              </div>
+            </div>
+          </div>
         </section>
 
         <section id="experience" class="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24" aria-label="Work experience">
