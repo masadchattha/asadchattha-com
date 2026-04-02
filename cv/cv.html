@@ -8,7 +8,7 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     width: 210mm; padding: 0;
-    background: #fff; color: #0f172a;
+    background: #fff; color: #334155;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
     font-size: 8.1pt; line-height: 1.32; -webkit-font-smoothing: antialiased;
   }
@@ -20,15 +20,15 @@
   .a2 .t { font-size: 9pt; font-weight: 600; color: #0f172a; }
   .a2 .r { color: #0d9488; font-weight: 600; font-size: 7.9pt; }
   .a2 .u { display: block; font-size: 7.3pt; color: #0d9488; margin-top: 0.2mm; }
-  .a2 p { color: #1e293b; font-size: 8pt; margin-top: 0.5mm; }
+  .a2 p { color: #334155; font-size: 8pt; margin-top: 0.5mm; }
   .os { margin-bottom: 3.4mm; }
   .os .t { font-size: 9pt; font-weight: 600; color: #0f172a; }
   .os .u { font-size: 7.3pt; color: #0d9488; }
-  .os p { color: #1e293b; margin-top: 0.5mm; }
+  .os p { color: #334155; margin-top: 0.5mm; }
   .head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5.5mm; }
   h1 { font-size: 25pt; font-weight: 800; letter-spacing: -1.1px; color: #0f766e; line-height: 1; }
   .tagline { margin-top: 2.5mm; font-size: 8.4pt; color: #334155; max-width: 92mm; line-height: 1.45; }
-  .contact { text-align: right; font-size: 8.2pt; line-height: 1.65; }
+  .contact { text-align: left; font-size: 8.2pt; line-height: 1.65; }
   .contact div { white-space: nowrap; }
   .cols { display: grid; grid-template-columns: 1fr 62mm; gap: 8mm; }
   h2 { font-size: 11.5pt; font-weight: 700; color: #0f766e; margin-bottom: 3.5mm; letter-spacing: -0.2px; }
@@ -38,15 +38,15 @@
   .job:last-child { margin-bottom: 0; }
   .role { font-size: 9.6pt; font-weight: 600; color: #0f172a; }
   .role .co { color: #0f766e; }
-  .dates { font-size: 7.6pt; color: #475569; font-weight: 500; margin-left: 2px; }
+  .dates { font-size: 7.6pt; color: #64748b; font-weight: 500; margin-left: 2px; }
   ul { list-style: none; margin-top: 1.6mm; }
-  li { position: relative; padding-left: 3.4mm; margin-bottom: 0.9mm; color: #1e293b; }
+  li { position: relative; padding-left: 3.4mm; margin-bottom: 0.9mm; color: #334155; }
   li::before { content: ""; position: absolute; left: 0; top: 1.3mm; width: 1.3mm; height: 1.3mm; border-radius: 50%; background: #0d9488; }
   b, strong { font-weight: 600; color: #0f172a; }
-  .stack { font-size: 7.7pt; color: #475569; margin-top: 1.4mm; }
+  .stack { font-size: 7.7pt; color: #64748b; margin-top: 1.4mm; }
   .sk { margin-bottom: 2.6mm; }
   .sk h3 { font-size: 8.4pt; font-weight: 700; color: #0f172a; margin-bottom: 0.7mm; }
-  .sk p { color: #1e293b; font-size: 8.1pt; }
+  .sk p { color: #334155; font-size: 8.1pt; }
   .app { margin-bottom: 2.1mm; }
   .app .n { font-weight: 600; color: #0f172a; }
   .app .d { color: #334155; font-size: 7.9pt; }
@@ -76,7 +76,8 @@
       <div class="rule"></div>
 
       <div class="job">
-        <div class="role">Senior iOS Engineer · <span class="co">o9 Tech</span> <span class="dates">2023 — Present</span></div>
+        <div class="role">Lead iOS Engineer · <span class="co">o9 Tech</span> <span class="dates">Oct 2025 — Present</span></div>
+        <div class="role" style="margin-top:0.4mm">Senior iOS Engineer <span class="dates">Nov 2023 — Oct 2025</span></div>
         <ul>
           <li>Lead iOS development across a portfolio of consumer apps, owning architecture, Core Data, release pipelines, and App Store review.</li>
           <li>Built Screen Time and Family Controls engines across five apps, including NFC-triggered focus lockdowns and shield configuration UI.</li>
@@ -139,13 +140,19 @@
       <section>
         <h2>Education</h2>
         <div class="rule"></div>
-        <div class="sk"><h3>University of Gujrat</h3><p>BS Software Engineering, 2015 — 2019<br>CGPA 3.21</p></div>
+        <div class="sk"><h3>University of Gujrat</h3><p>Bachelor of Science in Software Engineering<br>2015 — 2019</p></div>
+      </section>
+
+      <section>
+        <h2>Interests</h2>
+        <div class="rule"></div>
+        <p style="color:#334155">Digital wellbeing and Screen Time research, on-device AI and privacy-first apps, habit design and behavioural psychology, Arabic language, long-form nonfiction, cricket</p>
       </section>
 
       <section>
         <h2>Languages</h2>
         <div class="rule"></div>
-        <p style="color:#1e293b">English (fluent), Urdu (native), Arabic (basic)</p>
+        <p style="color:#334155">English (fluent), Urdu (native), Arabic (basic)</p>
       </section>
     </aside>
   </div>
@@ -155,15 +162,15 @@
     <h2>Selected Apps</h2>
     <div class="rule"></div>
     <div class="apps2">
-      <div class="a2"><span class="t">HiiKER</span> <span class="r">4.6 ★ · 4.9K</span><span class="u">apps.apple.com/app/id1470810597</span><p>Offline hiking maps serving 130,000+ trails with GPX import, 3D terrain, weather overlays, and Mountain Rescue Team integrations. iPhone, iPad, and Apple Watch.</p></div>
-      <div class="a2"><span class="t">Foqos</span> <span class="r">4.9 ★ · 6.4K</span><span class="u">apps.apple.com/app/id6736793117</span><p>NFC-triggered focus lockdowns on Family Controls. Tap a physical tag or scan a QR code to shield distracting apps, with schedules and usage insights.</p></div>
-      <div class="a2"><span class="t">Athanify</span> <span class="r">5.0 ★ · own product</span><span class="u">athanify.com</span><p>Prayer companion with adhan times, AR Qibla finder, Live Activities, sleep stories, and Screen Time shields that silence distracting apps at prayer times.</p></div>
-      <div class="a2"><span class="t">Pryvate Messenger</span> <span class="r">4.4 ★ · 217</span><span class="u">apps.apple.com/app/id914948581</span><p>End-to-end encrypted calls, messaging, and email with RSA 4096 and Post-Quantum ZRTP, running in 50+ countries under HIPAA and GDPR.</p></div>
+      <div class="a2"><span class="t">HiiKER</span> <span class="r">4.6 ★ (4.9K)</span><span class="u">apps.apple.com/app/id1470810597</span><p>Offline hiking maps serving 130,000+ trails with GPX import, 3D terrain, weather overlays, and Mountain Rescue Team integrations. iPhone, iPad, and Apple Watch.</p></div>
+      <div class="a2"><span class="t">Foqos</span> <span class="r">4.9 ★ (6.4K)</span><span class="u">apps.apple.com/app/id6736793117</span><p>NFC-triggered focus lockdowns on Family Controls. Tap a physical tag or scan a QR code to shield distracting apps, with schedules and usage insights.</p></div>
+      <div class="a2"><span class="t">Athanify</span> <span class="r">5.0 ★ (own product)</span><span class="u">athanify.com</span><p>Prayer companion with adhan times, AR Qibla finder, Live Activities, sleep stories, and Screen Time shields that silence distracting apps at prayer times.</p></div>
+      <div class="a2"><span class="t">Pryvate Messenger</span> <span class="r">4.4 ★ (217)</span><span class="u">apps.apple.com/app/id914948581</span><p>End-to-end encrypted calls, messaging, and email with RSA 4096 and Post-Quantum ZRTP, running in 50+ countries under HIPAA and GDPR.</p></div>
       <div class="a2"><span class="t">Votari</span> <span class="r">blockchain</span><span class="u">apps.apple.com/app/id6748386729</span><p>Decentralized election infrastructure on Bitcoin SV. On-device KYC with face matching and e-Passport NFC, Merkle-tree ballot proofs, 100,000+ ballot scale.</p></div>
-      <div class="a2"><span class="t">Focus Bear</span> <span class="r">4.7 ★ · 90</span><span class="u">apps.apple.com/app/id1673296334</span><p>ADHD productivity app with habit routines, distraction blocking, HealthKit sync, and Apple Watch complications across iPhone, iPad, and Watch.</p></div>
-      <div class="a2"><span class="t">Going Solo</span> <span class="r">4.5 ★ · 1.8K</span><span class="u">apps.apple.com/app/id1671515758</span><p>Social travel platform connecting solo travelers with real-time chat, nearby discovery, and interest-based trip matching.</p></div>
-      <div class="a2"><span class="t">Shelly</span> <span class="r">5.0 ★ · 7</span><span class="u">apps.apple.com/app/id6757734582</span><p>Screen time control on Family Controls and DeviceActivityMonitor. Daily limits, app shields, and weekly usage insights with a mascot-led experience.</p></div>
-      <div class="a2"><span class="t">Peptify</span> <span class="r">4.2 ★ · 20</span><span class="u">apps.apple.com/app/id6760272148</span><p>On-device medical tracker for peptide protocols. Dose logging, vial inventory, bloodwork scanning with Vision OCR, and body composition tracking. No cloud sync.</p></div>
+      <div class="a2"><span class="t">Focus Bear</span> <span class="r">4.7 ★ (90)</span><span class="u">apps.apple.com/app/id1673296334</span><p>ADHD productivity app with habit routines, distraction blocking, HealthKit sync, and Apple Watch complications across iPhone, iPad, and Watch.</p></div>
+      <div class="a2"><span class="t">Going Solo</span> <span class="r">4.5 ★ (1.8K)</span><span class="u">apps.apple.com/app/id1671515758</span><p>Social travel platform connecting solo travelers with real-time chat, nearby discovery, and interest-based trip matching.</p></div>
+      <div class="a2"><span class="t">Shelly</span> <span class="r">5.0 ★ (7)</span><span class="u">apps.apple.com/app/id6757734582</span><p>Screen time control on Family Controls and DeviceActivityMonitor. Daily limits, app shields, and weekly usage insights with a mascot-led experience.</p></div>
+      <div class="a2"><span class="t">Peptify</span> <span class="r">4.2 ★ (20)</span><span class="u">apps.apple.com/app/id6760272148</span><p>On-device medical tracker for peptide protocols. Dose logging, vial inventory, bloodwork scanning with Vision OCR, and body composition tracking. No cloud sync.</p></div>
       <div class="a2"><span class="t">Block</span> <span class="r">NFC hardware</span><span class="u">apps.apple.com/app/id6752846663</span><p>Physical focus device plus companion app. Tap the NFC block to instantly shield distracting apps through Screen Time shield configuration.</p></div>
       <div class="a2"><span class="t">Officetree</span> <span class="r">VoIP</span><span class="u">apps.apple.com/app/id6444354321</span><p>Business phone system with VoIP and SIP calling, voicemail, multi-account switching, Stripe billing, and Apple Pay.</p></div>
       <div class="a2"><span class="t">Plant Health</span> <span class="r">on-device AI</span><span class="u">apps.apple.com/app/id6763390612</span><p>Plant diagnosis using RAG over a local knowledge base and an on-device LLM, with Vision-based leaf analysis. Fully offline inference.</p></div>
