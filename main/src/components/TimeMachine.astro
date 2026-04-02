@@ -10,16 +10,17 @@ const versions = [
 ---
 
 <!-- Trigger — bottom-right of page content, her exact TARDIS pattern with the astrolabe -->
-<div class="absolute bottom-0 right-0">
+<div class="pointer-events-none fixed bottom-4 right-4 z-40 lg:bottom-6 lg:right-6">
   <button
     id="tm-trigger"
-    class="inline-flex items-center px-2 py-4 font-medium text-slate-400 transition hover:-translate-y-2 hover:text-teal-300"
+    class="group/tm pointer-events-auto inline-flex flex-col items-center gap-1 px-2 py-2 font-medium text-slate-400 transition hover:-translate-y-1 hover:text-teal-300"
     aria-haspopup="dialog"
   >
     <span class="sr-only">Click to time travel</span>
     <span class="tm-astrolabe" aria-hidden="true">
       <Fragment set:html={astrolabeSvg} />
     </span>
+    <span class="rounded-full border border-slate-200/10 bg-slate-800/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-slate-400 backdrop-blur transition group-hover/tm:border-teal-300/30 group-hover/tm:text-teal-300" aria-hidden="true">Time Machine</span>
   </button>
 </div>
 
