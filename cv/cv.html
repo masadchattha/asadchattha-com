@@ -7,15 +7,27 @@
   @page { size: A4; margin: 0; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
-    width: 210mm; height: 297mm; overflow: hidden; padding: 11mm 12mm 8mm;
-    background: #fff; color: #1e293b;
+    width: 210mm; padding: 0;
+    background: #fff; color: #0f172a;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
     font-size: 8.1pt; line-height: 1.32; -webkit-font-smoothing: antialiased;
   }
   a { color: #0f766e; text-decoration: none; }
+  .page { width: 210mm; height: 297mm; padding: 11mm 12mm 9mm; overflow: hidden; position: relative; }
+  .page + .page { border-top: none; }
+  .apps2 { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm 8mm; }
+  .a2 { break-inside: avoid; }
+  .a2 .t { font-size: 9pt; font-weight: 600; color: #0f172a; }
+  .a2 .r { color: #0d9488; font-weight: 600; font-size: 7.9pt; }
+  .a2 .u { display: block; font-size: 7.3pt; color: #0d9488; margin-top: 0.2mm; }
+  .a2 p { color: #1e293b; font-size: 8pt; margin-top: 0.5mm; }
+  .os { margin-bottom: 3.4mm; }
+  .os .t { font-size: 9pt; font-weight: 600; color: #0f172a; }
+  .os .u { font-size: 7.3pt; color: #0d9488; }
+  .os p { color: #1e293b; margin-top: 0.5mm; }
   .head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5.5mm; }
   h1 { font-size: 25pt; font-weight: 800; letter-spacing: -1.1px; color: #0f766e; line-height: 1; }
-  .tagline { margin-top: 2.5mm; font-size: 8.4pt; color: #475569; max-width: 92mm; line-height: 1.45; }
+  .tagline { margin-top: 2.5mm; font-size: 8.4pt; color: #334155; max-width: 92mm; line-height: 1.45; }
   .contact { text-align: right; font-size: 8.2pt; line-height: 1.65; }
   .contact div { white-space: nowrap; }
   .cols { display: grid; grid-template-columns: 1fr 62mm; gap: 8mm; }
@@ -26,22 +38,23 @@
   .job:last-child { margin-bottom: 0; }
   .role { font-size: 9.6pt; font-weight: 600; color: #0f172a; }
   .role .co { color: #0f766e; }
-  .dates { font-size: 7.6pt; color: #64748b; font-weight: 500; margin-left: 2px; }
+  .dates { font-size: 7.6pt; color: #475569; font-weight: 500; margin-left: 2px; }
   ul { list-style: none; margin-top: 1.6mm; }
-  li { position: relative; padding-left: 3.4mm; margin-bottom: 0.9mm; color: #334155; }
-  li::before { content: ""; position: absolute; left: 0; top: 1.35mm; width: 1.3mm; height: 1.3mm; border-radius: 50%; background: #5eead4; }
+  li { position: relative; padding-left: 3.4mm; margin-bottom: 0.9mm; color: #1e293b; }
+  li::before { content: ""; position: absolute; left: 0; top: 1.3mm; width: 1.3mm; height: 1.3mm; border-radius: 50%; background: #0d9488; }
   b, strong { font-weight: 600; color: #0f172a; }
-  .stack { font-size: 7.7pt; color: #64748b; margin-top: 1.4mm; }
+  .stack { font-size: 7.7pt; color: #475569; margin-top: 1.4mm; }
   .sk { margin-bottom: 2.6mm; }
   .sk h3 { font-size: 8.4pt; font-weight: 700; color: #0f172a; margin-bottom: 0.7mm; }
-  .sk p { color: #475569; font-size: 8.1pt; }
+  .sk p { color: #1e293b; font-size: 8.1pt; }
   .app { margin-bottom: 2.1mm; }
   .app .n { font-weight: 600; color: #0f172a; }
-  .app .d { color: #64748b; font-size: 7.9pt; }
-  .rule { height: 0.35mm; background: #ccfbf1; margin: 1.2mm 0 2.8mm; }
+  .app .d { color: #334155; font-size: 7.9pt; }
+  .rule { height: 0.35mm; background: #99f6e4; margin: 1.2mm 0 2.8mm; }
 </style>
 </head>
 <body>
+  <div class="page">
   <div class="head">
     <div>
       <h1>Muhammad Asad</h1>
@@ -61,16 +74,6 @@
     <main>
       <h2>Experience</h2>
       <div class="rule"></div>
-
-      <div class="job">
-        <div class="role">Independent iOS Engineer · <span class="co">Freelance, Remote</span> <span class="dates">2023 — Present</span></div>
-        <ul>
-          <li>Screen Time and app-blocking products built end to end, from Family Controls entitlement through App Store approval.</li>
-          <li>Rescued rejected submissions, shipped StoreKit 2 subscription and paywall systems, and fixed native modules inside React Native apps.</li>
-          <li>Backends on Supabase and Firebase, AI features with OpenAI and on-device LLMs. Every completed contract rated 5.0.</li>
-        </ul>
-        <p class="stack">Screen Time · StoreKit 2 · Tap to Pay · Core NFC · ARKit · CoreML · Claude Code · Supabase · OpenAI</p>
-      </div>
 
       <div class="job">
         <div class="role">Senior iOS Engineer · <span class="co">o9 Tech</span> <span class="dates">2023 — Present</span></div>
@@ -111,12 +114,14 @@
         <p class="stack">Swift · UIKit · Core Data · Firebase</p>
       </div>
 
-      <h2 style="margin-top:5mm">Writing &amp; Open Source</h2>
+      <h2 style="margin-top:5.5mm">Highlights</h2>
       <div class="rule"></div>
       <ul>
-        <li><b>iOS Development using UIKit</b>, a 243-page book published on Apple Books, 2023.</li>
-        <li>Contributor to <b>SwifterSwift</b>, an open-source Swift extension library with 14.9K stars.</li>
-        <li>Technical articles on Swift compilation, Vision OCR, and media playback, published on Medium and LinkedIn.</li>
+        <li><b>16 apps</b> shipped to the App Store for clients in the US, Ireland, UK, and Australia.</li>
+        <li><b>130,000+ trails</b> served through HiiKER, with Mountain Rescue Team integrations across Ireland, the UK, and the US.</li>
+        <li><b>100,000+ ballot</b> capacity in Votari, blockchain election infrastructure with on-device KYC.</li>
+        <li><b>Screen Time and Family Controls</b> engines built across six apps, including Apple-approved entitlement work.</li>
+        <li>Published a <b>243-page book</b> on Apple Books and contribute to <b>SwifterSwift</b>, 14.9K stars.</li>
       </ul>
     </main>
 
@@ -132,17 +137,6 @@
       </section>
 
       <section>
-        <h2>Selected Apps</h2>
-        <div class="rule"></div>
-        <div class="app"><span class="n">HiiKER</span> <span class="d">4.6 ★, 4.9K ratings. Offline hiking maps, 130,000+ trails, iPhone, iPad, and Apple Watch.</span></div>
-        <div class="app"><span class="n">Athanify</span> <span class="d">Own product. Prayer companion with Screen Time shields and Live Activities.</span></div>
-        <div class="app"><span class="n">Pryvate Messenger</span> <span class="d">4.4 ★, 217 ratings. E2E encrypted calls and messaging in 50+ countries.</span></div>
-        <div class="app"><span class="n">Focus Bear</span> <span class="d">4.7 ★. ADHD productivity with Apple Watch complications and HealthKit.</span></div>
-        <div class="app"><span class="n">Votari</span> <span class="d">Blockchain elections on Bitcoin SV with on-device KYC.</span></div>
-        <div class="app"><span class="n">Going Solo</span> <span class="d">4.5 ★, 1.8K ratings. Social travel with real-time chat and location matching.</span></div>
-      </section>
-
-      <section>
         <h2>Education</h2>
         <div class="rule"></div>
         <div class="sk"><h3>University of Gujrat</h3><p>BS Software Engineering, 2015 — 2019<br>CGPA 3.21</p></div>
@@ -151,9 +145,38 @@
       <section>
         <h2>Languages</h2>
         <div class="rule"></div>
-        <p style="color:#475569">English (fluent), Urdu (native), Arabic (basic)</p>
+        <p style="color:#1e293b">English (fluent), Urdu (native), Arabic (basic)</p>
       </section>
     </aside>
+  </div>
+  </div>
+
+  <div class="page">
+    <h2>Selected Apps</h2>
+    <div class="rule"></div>
+    <div class="apps2">
+      <div class="a2"><span class="t">HiiKER</span> <span class="r">4.6 ★ · 4.9K</span><span class="u">apps.apple.com/app/id1470810597</span><p>Offline hiking maps serving 130,000+ trails with GPX import, 3D terrain, weather overlays, and Mountain Rescue Team integrations. iPhone, iPad, and Apple Watch.</p></div>
+      <div class="a2"><span class="t">Foqos</span> <span class="r">4.9 ★ · 6.4K</span><span class="u">apps.apple.com/app/id6736793117</span><p>NFC-triggered focus lockdowns on Family Controls. Tap a physical tag or scan a QR code to shield distracting apps, with schedules and usage insights.</p></div>
+      <div class="a2"><span class="t">Athanify</span> <span class="r">5.0 ★ · own product</span><span class="u">athanify.com</span><p>Prayer companion with adhan times, AR Qibla finder, Live Activities, sleep stories, and Screen Time shields that silence distracting apps at prayer times.</p></div>
+      <div class="a2"><span class="t">Pryvate Messenger</span> <span class="r">4.4 ★ · 217</span><span class="u">apps.apple.com/app/id914948581</span><p>End-to-end encrypted calls, messaging, and email with RSA 4096 and Post-Quantum ZRTP, running in 50+ countries under HIPAA and GDPR.</p></div>
+      <div class="a2"><span class="t">Votari</span> <span class="r">blockchain</span><span class="u">apps.apple.com/app/id6748386729</span><p>Decentralized election infrastructure on Bitcoin SV. On-device KYC with face matching and e-Passport NFC, Merkle-tree ballot proofs, 100,000+ ballot scale.</p></div>
+      <div class="a2"><span class="t">Focus Bear</span> <span class="r">4.7 ★ · 90</span><span class="u">apps.apple.com/app/id1673296334</span><p>ADHD productivity app with habit routines, distraction blocking, HealthKit sync, and Apple Watch complications across iPhone, iPad, and Watch.</p></div>
+      <div class="a2"><span class="t">Going Solo</span> <span class="r">4.5 ★ · 1.8K</span><span class="u">apps.apple.com/app/id1671515758</span><p>Social travel platform connecting solo travelers with real-time chat, nearby discovery, and interest-based trip matching.</p></div>
+      <div class="a2"><span class="t">Shelly</span> <span class="r">5.0 ★ · 7</span><span class="u">apps.apple.com/app/id6757734582</span><p>Screen time control on Family Controls and DeviceActivityMonitor. Daily limits, app shields, and weekly usage insights with a mascot-led experience.</p></div>
+      <div class="a2"><span class="t">Peptify</span> <span class="r">4.2 ★ · 20</span><span class="u">apps.apple.com/app/id6760272148</span><p>On-device medical tracker for peptide protocols. Dose logging, vial inventory, bloodwork scanning with Vision OCR, and body composition tracking. No cloud sync.</p></div>
+      <div class="a2"><span class="t">Block</span> <span class="r">NFC hardware</span><span class="u">apps.apple.com/app/id6752846663</span><p>Physical focus device plus companion app. Tap the NFC block to instantly shield distracting apps through Screen Time shield configuration.</p></div>
+      <div class="a2"><span class="t">Officetree</span> <span class="r">VoIP</span><span class="u">apps.apple.com/app/id6444354321</span><p>Business phone system with VoIP and SIP calling, voicemail, multi-account switching, Stripe billing, and Apple Pay.</p></div>
+      <div class="a2"><span class="t">Plant Health</span> <span class="r">on-device AI</span><span class="u">apps.apple.com/app/id6763390612</span><p>Plant diagnosis using RAG over a local knowledge base and an on-device LLM, with Vision-based leaf analysis. Fully offline inference.</p></div>
+    </div>
+
+    <h2 style="margin-top:6mm">Open Source</h2>
+    <div class="rule"></div>
+    <div class="apps2">
+      <div class="os"><span class="t">SwifterSwift</span> <span class="r" style="color:#0d9488;font-weight:600">14.9K ★</span><br><span class="u">github.com/SwifterSwift/SwifterSwift</span><p>500+ native Swift extensions across iOS, macOS, tvOS, watchOS, and Linux. Contributed UIView tap gesture handling.</p></div>
+      <div class="os"><span class="t">SwiftBSV</span> <span class="r" style="color:#0d9488;font-weight:600">16 ★</span><br><span class="u">github.com/wtsnz/SwiftBSV</span><p>Bitcoin SV library for transaction creation, signing, and HD wallets. Fixed Swift 6 and Xcode 16 compatibility across crypto and ECDSA functions.</p></div>
+      <div class="os"><span class="t">Kinde iOS SDK</span> <span class="r" style="color:#0d9488;font-weight:600">11 ★</span><br><span class="u">github.com/kinde-oss/kinde-sdk-ios</span><p>Official iOS SDK for the Kinde identity platform. Reviewed the login_hint feature pull request for auth flow pre-population.</p></div>
+      <div class="os"><span class="t">Publication</span><br><span class="u">books.apple.com/us/book/id6448717308</span><p><b>iOS Development using UIKit</b>, a 243-page guide covering views, view controllers, and controls from foundational to advanced concepts. Self-published on Apple Books, 2023.</p></div>
+    </div>
   </div>
 </body>
 </html>
