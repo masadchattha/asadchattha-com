@@ -148,7 +148,8 @@ const jobs = [
   {
     range: '2023 — Present',
     ariaRange: '2023 to Present',
-    title: 'Senior iOS Engineer',
+    title: 'Lead iOS Engineer',
+    priorTitles: ['Senior iOS Engineer'],
     company: 'o9 Tech',
     url: 'https://o9tech.com',
     description:
@@ -387,6 +388,9 @@ const jobs = [
                           </span>
                         </a>
                       </div>
+                      {job.priorTitles && job.priorTitles.map((prior) => (
+                        <div class="text-slate-500">{prior}</div>
+                      ))}
                     </h3>
                     <p class="mt-2 text-sm leading-normal">{job.description}</p>
                     <ul class="mt-2 flex flex-wrap" aria-label="Technologies used">
