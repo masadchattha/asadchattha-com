@@ -12,36 +12,36 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
     font-size: 8.1pt; line-height: 1.32; -webkit-font-smoothing: antialiased;
   }
-  a { color: #0f766e; text-decoration: none; }
+  a { color: #334155; text-decoration: none; }
   .page { width: 210mm; height: 297mm; padding: 11mm 12mm 9mm; overflow: hidden; position: relative; }
   .page + .page { border-top: none; }
   .apps2 { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm 8mm; }
   .a2 { break-inside: avoid; }
-  .a2 .t { font-size: 9pt; font-weight: 600; color: #0f172a; }
-  .a2 .r { color: #0d9488; font-weight: 600; font-size: 7.9pt; }
-  .a2 .u { display: block; font-size: 7.3pt; color: #0d9488; margin-top: 0.2mm; }
+  .a2 .t { font-size: 9pt; font-weight: 700; color: #0f172a; }
+  .a2 .r { color: #1e4ed8; font-weight: 600; font-size: 7.9pt; }
+  .a2 .u { display: block; font-size: 7.3pt; color: #1e4ed8; margin-top: 0.2mm; }
   .a2 p { color: #334155; font-size: 8pt; margin-top: 0.5mm; }
   .os { margin-bottom: 3.4mm; }
-  .os .t { font-size: 9pt; font-weight: 600; color: #0f172a; }
-  .os .u { font-size: 7.3pt; color: #0d9488; }
+  .os .t { font-size: 9pt; font-weight: 700; color: #0f172a; }
+  .os .u { font-size: 7.3pt; color: #1e4ed8; }
   .os p { color: #334155; margin-top: 0.5mm; }
   .head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5.5mm; }
-  h1 { font-size: 25pt; font-weight: 800; letter-spacing: -1.1px; color: #0f766e; line-height: 1; }
+  h1 { font-size: 25pt; font-weight: 800; letter-spacing: -1.1px; color: #1e4ed8; line-height: 1; }
   .tagline { margin-top: 2.5mm; font-size: 8.4pt; color: #334155; max-width: 92mm; line-height: 1.45; }
-  .contact { text-align: left; font-size: 8.2pt; line-height: 1.65; }
+  .contact { text-align: left; color: #334155; font-size: 8.2pt; line-height: 1.65; }
   .contact div { white-space: nowrap; }
   .cols { display: grid; grid-template-columns: 1fr 62mm; gap: 8mm; }
-  h2 { font-size: 11.5pt; font-weight: 700; color: #0f766e; margin-bottom: 3.5mm; letter-spacing: -0.2px; }
+  h2 { font-size: 11.5pt; font-weight: 700; color: #1e4ed8; margin-bottom: 3.5mm; letter-spacing: -0.2px; }
   .side h2 { margin-top: 0; }
   .side section + section { margin-top: 4.6mm; }
   .job { margin-bottom: 4mm; }
   .job:last-child { margin-bottom: 0; }
   .role { font-size: 9.6pt; font-weight: 600; color: #0f172a; }
-  .role .co { color: #0f766e; }
+  .role .co { color: #0f172a; font-weight: 700; }
   .dates { font-size: 7.6pt; color: #64748b; font-weight: 500; margin-left: 2px; }
   ul { list-style: none; margin-top: 1.6mm; }
   li { position: relative; padding-left: 3.4mm; margin-bottom: 0.9mm; color: #334155; }
-  li::before { content: ""; position: absolute; left: 0; top: 1.3mm; width: 1.3mm; height: 1.3mm; border-radius: 50%; background: #0d9488; }
+  li::before { content: ""; position: absolute; left: 0; top: 1.3mm; width: 1.3mm; height: 1.3mm; border-radius: 50%; background: #334155; }
   b, strong { font-weight: 600; color: #0f172a; }
   .stack { font-size: 7.7pt; color: #64748b; margin-top: 1.4mm; }
   .sk { margin-bottom: 2.6mm; }
@@ -50,7 +50,7 @@
   .app { margin-bottom: 2.1mm; }
   .app .n { font-weight: 600; color: #0f172a; }
   .app .d { color: #334155; font-size: 7.9pt; }
-  .rule { height: 0.35mm; background: #99f6e4; margin: 1.2mm 0 2.8mm; }
+  .rule { height: 0.35mm; background: #dbeafe; margin: 1.2mm 0 2.8mm; }
 </style>
 </head>
 <body>
@@ -146,7 +146,7 @@
       <section>
         <h2>Interests</h2>
         <div class="rule"></div>
-        <p style="color:#334155">Digital wellbeing and Screen Time research, on-device AI and privacy-first apps, habit design and behavioural psychology, Arabic language, long-form nonfiction, cricket</p>
+        <p style="color:#334155">Digital wellbeing, cricket, long-form nonfiction, Arabic language, hiking in northern Pakistan</p>
       </section>
 
       <section>
@@ -159,7 +159,7 @@
   </div>
 
   <div class="page">
-    <h2>Selected Apps</h2>
+    <h2>Selected Projects</h2>
     <div class="rule"></div>
     <div class="apps2">
       <div class="a2"><span class="t">HiiKER</span> <span class="r">4.6 ★ (4.9K)</span><span class="u">apps.apple.com/app/id1470810597</span><p>Offline hiking maps serving 130,000+ trails with GPX import, 3D terrain, weather overlays, and Mountain Rescue Team integrations. iPhone, iPad, and Apple Watch.</p></div>
@@ -179,9 +179,9 @@
     <h2 style="margin-top:6mm">Open Source</h2>
     <div class="rule"></div>
     <div class="apps2">
-      <div class="os"><span class="t">SwifterSwift</span> <span class="r" style="color:#0d9488;font-weight:600">14.9K ★</span><br><span class="u">github.com/SwifterSwift/SwifterSwift</span><p>500+ native Swift extensions across iOS, macOS, tvOS, watchOS, and Linux. Contributed UIView tap gesture handling.</p></div>
-      <div class="os"><span class="t">SwiftBSV</span> <span class="r" style="color:#0d9488;font-weight:600">16 ★</span><br><span class="u">github.com/wtsnz/SwiftBSV</span><p>Bitcoin SV library for transaction creation, signing, and HD wallets. Fixed Swift 6 and Xcode 16 compatibility across crypto and ECDSA functions.</p></div>
-      <div class="os"><span class="t">Kinde iOS SDK</span> <span class="r" style="color:#0d9488;font-weight:600">11 ★</span><br><span class="u">github.com/kinde-oss/kinde-sdk-ios</span><p>Official iOS SDK for the Kinde identity platform. Reviewed the login_hint feature pull request for auth flow pre-population.</p></div>
+      <div class="os"><span class="t">SwifterSwift</span> <span class="r" style="color:#1e4ed8;font-weight:600">14.9K ★</span><br><span class="u">github.com/SwifterSwift/SwifterSwift</span><p>500+ native Swift extensions across iOS, macOS, tvOS, watchOS, and Linux. Contributed UIView tap gesture handling.</p></div>
+      <div class="os"><span class="t">SwiftBSV</span> <span class="r" style="color:#1e4ed8;font-weight:600">16 ★</span><br><span class="u">github.com/wtsnz/SwiftBSV</span><p>Bitcoin SV library for transaction creation, signing, and HD wallets. Fixed Swift 6 and Xcode 16 compatibility across crypto and ECDSA functions.</p></div>
+      <div class="os"><span class="t">Kinde iOS SDK</span> <span class="r" style="color:#1e4ed8;font-weight:600">11 ★</span><br><span class="u">github.com/kinde-oss/kinde-sdk-ios</span><p>Official iOS SDK for the Kinde identity platform. Reviewed the login_hint feature pull request for auth flow pre-population.</p></div>
       <div class="os"><span class="t">Publication</span><br><span class="u">books.apple.com/us/book/id6448717308</span><p><b>iOS Development using UIKit</b>, a 243-page guide covering views, view controllers, and controls from foundational to advanced concepts. Self-published on Apple Books, 2023.</p></div>
     </div>
   </div>
