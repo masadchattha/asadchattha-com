@@ -11,3 +11,6 @@ dist/
 # env
 .env
 .env.*
+
+# generated CV output (published copy lives at main/public/resume.pdf)
+cv/cv_preview.pdf
