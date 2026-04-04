@@ -6,14 +6,14 @@ const archive = [
   { year: '2026', project: 'Plant Health', madeAt: 'Personal', builtWith: ['SwiftUI', 'RAG', 'Local LLM', 'Vision'], url: 'https://apps.apple.com/app/id6763390612', label: 'App Store' },
   { year: '2026', project: 'Athanify', madeAt: 'Personal', builtWith: ['SwiftUI', 'CoreLocation', 'Local Notifications'], url: 'https://apps.apple.com/app/athanify/id6759103699', label: 'App Store' },
   { year: '2026', project: 'Shelly', madeAt: 'Client work', builtWith: ['Family Controls', 'DeviceActivityMonitor', 'WidgetKit'], url: 'https://apps.apple.com/us/app/shelly-screen-time-control/id6757734582', label: 'App Store' },
-  { year: '2025', project: 'Foqos', madeAt: 'o9 Tech', builtWith: ['SwiftUI', 'Core NFC', 'Family Controls'], url: 'https://apps.apple.com/us/app/foqos/id6736793117', label: 'App Store' },
-  { year: '2025', project: 'Votari', madeAt: 'Coder Crew LLC', builtWith: ['Swift', 'Bitcoin SV', 'Cryptographic Verification'], url: 'https://apps.apple.com/us/app/votari/id6748386729', label: 'App Store' },
-  { year: '2025', project: 'Chapter', madeAt: 'o9 Tech', builtWith: ['Screen Time API', 'Habit Engine', 'Gamification'], url: 'https://apps.apple.com/us/app/chapter-replace-a-bad-habit/id6757711400', label: 'App Store' },
-  { year: '2025', project: 'Fonder Cards', madeAt: 'o9 Tech', builtWith: ['WidgetKit', 'Real-time Shared State', 'Streak Engine'], url: 'https://apps.apple.com/app/id6757206838', label: 'App Store' },
+  { year: '2024', project: 'Foqos', madeAt: 'o9 Tech', builtWith: ['SwiftUI', 'Core NFC', 'Family Controls'], url: 'https://apps.apple.com/us/app/foqos/id6736793117', label: 'App Store' },
+  { year: '2023', project: 'Votari', madeAt: 'Coder Crew LLC', builtWith: ['Swift', 'Bitcoin SV', 'Cryptographic Verification'], url: 'https://apps.apple.com/us/app/votari/id6748386729', label: 'App Store' },
+  { year: '2026', project: 'Chapter', madeAt: 'o9 Tech', builtWith: ['Screen Time API', 'Habit Engine', 'Gamification'], url: 'https://apps.apple.com/us/app/chapter-replace-a-bad-habit/id6757711400', label: 'App Store' },
+  { year: '2025', project: 'Fonder Cards', madeAt: 'o9 Tech', builtWith: ['WidgetKit', 'Real-time Shared State', 'Streak Engine'], url: '', label: 'Unlisted' },
   { year: '2025', project: 'Bright Start', madeAt: 'o9 Tech', builtWith: ['Camera / Light Sensing', 'Family Controls'], url: 'https://apps.apple.com/us/app/id6745139907', label: 'App Store' },
   { year: '2024', project: 'HiiKER', madeAt: 'o9 Tech', builtWith: ['Swift', 'MapKit', 'Offline Tiles'], url: 'https://apps.apple.com/us/app/hiiker-the-hiking-maps-app/id1470810597', label: 'App Store' },
-  { year: '2024', project: 'Block', madeAt: 'o9 Tech', builtWith: ['Core NFC', 'Family Controls', 'Focus Mode'], url: 'https://apps.apple.com/us/app/id6752846663', label: 'App Store' },
-  { year: '2023', project: 'Focus Bear', madeAt: 'o9 Tech', builtWith: ['Swift', 'HealthKit', 'Apple Watch'], url: 'https://apps.apple.com/us/app/focus-bear/id1673296334', label: 'App Store' },
+  { year: '2026', project: 'Block', madeAt: 'o9 Tech', builtWith: ['Core NFC', 'Family Controls', 'Focus Mode'], url: 'https://apps.apple.com/us/app/id6752846663', label: 'App Store' },
+  { year: '2025', project: 'Focus Bear', madeAt: 'o9 Tech', builtWith: ['Swift', 'HealthKit', 'Apple Watch'], url: 'https://apps.apple.com/us/app/focus-bear/id1673296334', label: 'App Store' },
   { year: '2023', project: 'Going Solo', madeAt: 'Coder Crew LLC', builtWith: ['Swift', 'Firebase', 'CoreLocation'], url: 'https://apps.apple.com/us/app/going-solo-travel-friends/id1671515758', label: 'App Store' },
   { year: '2023', project: '1st-Response', madeAt: 'Pryvate Technologies', builtWith: ['AVFoundation', 'Offline-first', 'Secure Upload'], url: 'https://apps.apple.com/us/app/id1663503501', label: 'App Store' },
   { year: '2022', project: 'Officetree', madeAt: 'Pryvate Technologies', builtWith: ['Swift', 'VoIP/SIP', 'Stripe', 'Apple Pay'], url: 'https://apps.apple.com/us/app/id6444354321', label: 'App Store' },
@@ -50,12 +50,16 @@ const archive = [
               <td class="py-4 pr-4 align-top font-semibold leading-snug text-slate-200">
                 <div>
                   <div class="block sm:hidden">
+                    {item.url ? (
                     <a class="inline-flex items-baseline font-medium leading-tight text-slate-200 hover:text-teal-300 focus-visible:text-teal-300 sm:hidden group/link text-base" href={item.url} target="_blank" rel="noreferrer noopener" aria-label={`${item.project} (opens in a new tab)`}>
                       <span>
                         {item.project}
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="inline-block h-4 w-4 shrink-0 transition-transform group-hover/link:-translate-y-1 group-hover/link:translate-x-1 group-focus-visible/link:-translate-y-1 group-focus-visible/link:translate-x-1 motion-reduce:transition-none ml-1 translate-y-px" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"></path></svg>
                       </span>
                     </a>
+                    ) : (
+                      <span class="font-medium leading-tight text-slate-200 text-base">{item.project}</span>
+                    )}
                   </div>
                   <div class="hidden sm:block">{item.project}</div>
                 </div>
@@ -75,12 +79,16 @@ const archive = [
               <td class="hidden py-4 align-top sm:table-cell">
                 <ul class="translate-y-1">
                   <li class="mb-1 flex items-center">
+                    {item.url ? (
                     <a class="inline-flex items-baseline font-medium leading-tight text-slate-400 hover:text-teal-300 focus-visible:text-teal-300 group/link text-sm" href={item.url} target="_blank" rel="noreferrer noopener" aria-label={`${item.label} (opens in a new tab)`}>
                       <span>
                         {item.label}
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="inline-block h-4 w-4 shrink-0 transition-transform group-hover/link:-translate-y-1 group-hover/link:translate-x-1 group-focus-visible/link:-translate-y-1 group-focus-visible/link:translate-x-1 motion-reduce:transition-none ml-1 translate-y-px" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"></path></svg>
                       </span>
                     </a>
+                    ) : (
+                      <span class="text-sm leading-tight text-slate-500">{item.label}</span>
+                    )}
                   </li>
                 </ul>
               </td>
