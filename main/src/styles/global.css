@@ -41,6 +41,20 @@ body {
    in Layout.astro. No CSS needed here. */
 
 /* ============================================
+   Spotlight is a cursor effect, so it is meaningless on touch devices — and
+   worse, with no pointer it stays parked at its initial 0px 0px and glows blue
+   over the top-left. That made the page read rgb(17,31,68) at the top while the
+   status bar painted theme-color #0f172a, leaving a visible seam on iOS.
+   Hers has the same behaviour; she just ships no theme-color so it never shows.
+   Dropping it on coarse pointers keeps the page one flat slate-900 edge to edge.
+   ============================================ */
+@media (hover: none), (pointer: coarse) {
+  #spotlight {
+    display: none;
+  }
+}
+
+/* ============================================
    Nav active state (scrollspy toggles .active on <a>)
    Mirrors her group-hover styles
    ============================================ */
