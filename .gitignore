@@ -14,3 +14,4 @@ dist/
 
 # generated CV output (published copy lives at main/public/resume.pdf)
 cv/cv_preview.pdf
+docs/reference-bc-v1/
