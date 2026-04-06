@@ -75,3 +75,51 @@ at v1.brittanychiang.com. Local clone during research: scratchpad `bc-v1/`. Re-c
 6. QA: scrollspy, modals, progress-bar animation, mobile collapse nav, then commit via backfill schedule.
 
 **Effort:** scaffold+port ~1 session; assets ~1; content+modals ~1; deploy+DNS+tile ~0.5.
+
+---
+
+## 7. ADDENDUM — pixel-level details (extracted from styles.css + index.html, complete)
+
+### Text selection & tap
+- `::selection` / `::-moz-selection`: background **#fed136** (yellow), `text-shadow: none`. Images: selection transparent. `webkit-tap-highlight-color: #fed136` on body.
+
+### Nav & favicon
+- Favicon: `img/logo-transparent-00009C.png` (brand-blue logo). Ours: "A" monogram tinted #00009C equivalent.
+- `.navbar-brand.page-scroll`: 16px, letter-spacing 1px. Nav shadow `.navbar-shadow: 0 1px 1px #444` appears after scroll. Mobile: Bootstrap `navbar-toggle` hamburger, collapse menu.
+
+### Hero (#intro) — exact
+- Full-screen, `background: url(img/mountain-dusk.jpg)` cover.
+- `.overlay`: vertical black gradient `rgba(0,0,0,.8) 0% → .73 17% → .66 35% → .55 62% → .4 100%` (lighter toward bottom).
+- `.intro-content`: absolute, `padding: 20% 0 5%` (mobile ≤768px: `30% 0 5%`).
+- `h1`: 60px Lato, white, `animated fadeInDown delay-05s`. `p.subtitle`: color **#ddd**, `fadeInUp`.
+- Chevron `a.fa.fa-angle-down`: 50px, color **#aaa** → hover **#fff**, `padding 10px 14px`, `margin-top: 175px` (mobile: 80px; ≥1600px: relative bottom 50px), `transition all .5s`, class `page-scroll` → jQuery scrollTo smooth-scrolls to `#about`.
+
+### About
+- `#prof-pic`: width **170px** (≤480px: 150px), circular via border-radius.
+- TL;DR icons: `.tldr-icon` 50×50, line-height 50, font-size 36 (FA icons in circles).
+
+### Experience — the B&W icon theme (confirmed)
+- `.skills-section .skill-icon img`: **`filter: grayscale(100%)`**, `transition all .3s ease-in-out` → `:hover` removes grayscale (full color). This IS the black-and-white icon look; color is the hover reward. Ours must ship color logos + the same grayscale filter.
+- Skill bars: `span.percent` counts up via jQuery; `.progressbar.progress{red|blue|purple|green|orange}` width animates when `.wp3-N` enters viewport.
+
+### Résumé band (#resume) — the fixed-background effect
+- `background: url(../img/laptop-blur.jpg); background-size: cover; background-position: center; background-attachment: fixed;` → the image stays pinned while content scrolls over it (classic parallax). Same black gradient overlay as hero.
+- `a.resume-btn`: ghost button — transparent bg, `padding 10px 20px`, color **#ddd**, border **2px solid #ccc**, Lato → hover/active: color **#fff**, border stays #ccc.
+- NOTE: `background-attachment: fixed` is ignored by iOS Safari (scrolls with content on phones) — that is true on HER live site too. Keep identical; do not "fix".
+
+### Portfolio interactions
+- Card: `.portfolio-hover` height 180px (mobile: 100%), image centered, cursor pointer.
+- Hover: `.hover-text` (white, absolute, centered) `opacity 0 → 1` on `:hover`, showing title + icons `fa-search-plus` (opens modal) / `fa-link`.
+- Click → Bootstrap modal: `h4.modal-title` + `h6.modal-title-description` (type label e.g. "Web App") + `img.img-responsive.img-centered` screenshot + `p.modal-description` + **`p.visit`: `Visit Site` or `View Source`** (both plain text links, `id=visit-btn`) + `button.btn.btn-default` Close.
+- **Our button mapping:** "Visit Site" → **"App Store"** text link (NO Apple badge image — her 2016 aesthetic is plain text links; a black App Store badge would break it). "View Source" → kept, only for projects with public repos (IDVKit; others omit it). Type labels: "iOS App", "Open-Source SDK", etc.
+
+### Get In Touch (#contact)
+- `.email-icon` with `fa-paper-plane-o` (waypoint-animated), `h2` "Get In Touch!", blurb line, then **"Say Hello"** ghost button: `#email-button` — color **#000**, `border 2px solid #000`, Lato **20px**, `padding 10px 20px`, `transition .3s ease-in-out` (hover inverts to filled black/white text) → `mailto:`. Ours → `mailto:m.asad.chatthaa@gmail.com`.
+
+### Footer
+- bg #222. `ul.list-inline.social-buttons animated fadeIn` — FA icons used across page/footer: **facebook, twitter, instagram, spotify, github, codepen, linkedin**. Ours: github, linkedin, twitter(X), instagram + optional codepen→Medium swap (keep FA4 icon set only).
+- "Beam me up, Scotty!" = scroll-to-top page-scroll link. "© Brittany Chiang 2016" → "© Muhammad Asad 2016-style".
+
+### Mobile behavior summary (@media ≤768px)
+- Container 95% width ≥768. Intro padding deepens to 30% top; chevron margin 80px.
+- Hamburger nav (Bootstrap collapse). Skill bars stretch full width, `h3` centered 16px. Portfolio hover regions become full-height. Headshot 150px ≤480px. Resume parallax degrades to scrolling bg on iOS (matches her live site).
