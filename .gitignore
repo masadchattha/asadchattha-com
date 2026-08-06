@@ -15,3 +15,10 @@ dist/
 # generated CV output (published copy lives at main/public/resume.pdf)
 cv/cv_preview.pdf
 docs/reference-bc-v1/
+
+# Reference clones of brittanychiang.com v1-v4, kept locally for study only.
+# NEVER commit these: they contain commercial font binaries (Apercu, Calibre,
+# Chronicle Display, Gotham, Whitney, SF Mono) that are licensed to their
+# purchasers, plus ~142MB of another developer's source. Re-clone from
+# github.com/bchiang7 if they are needed again.
+docs/reference-bc-*/
