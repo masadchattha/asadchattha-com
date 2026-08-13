@@ -1,0 +1,35 @@
+# Netlify config for v1.asadchattha.com
+#
+# This archive is a plain static site — no build step. Point a SEPARATE
+# Netlify site at this folder:
+#   Base directory:    archives/v1
+#   Build command:     (leave empty)
+#   Publish directory: archives/v1
+#
+# The root netlify.toml builds the CURRENT site (main/) and is unrelated.
+
+[build]
+  publish = "."
+  command = ""
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
