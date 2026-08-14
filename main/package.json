@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
+    "prebuild": "node scripts/sync-archives.mjs",
     "build": "astro build",
+    "sync:archives": "node scripts/sync-archives.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
