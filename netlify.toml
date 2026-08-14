@@ -1,5 +1,8 @@
-# Netlify build config. `publish` is resolved relative to `base`,
-# so this maps to main/dist in the repo.
+# ONE Netlify project serves every version of the site.
+#
+# `publish` is resolved relative to `base`, so this maps to main/dist.
+# The `prebuild` step in main/package.json copies archives/v1, /v2, /v3 into
+# main/public first, so they land in dist as /v1, /v2, /v3.
 [build]
   base = "main"
   command = "npm run build"
@@ -7,3 +10,33 @@
 
 [build.environment]
   NODE_VERSION = "20"
+
+# ---------------------------------------------------------------------------
+# Version subdomains.
+#
+# Each vN.asadchattha.com is a domain alias on THIS site, rewritten (status 200,
+# not a 301) onto the matching folder — so the address bar keeps saying
+# v1.asadchattha.com while the content comes from /v1. `force = true` is needed
+# because the root site already answers for those paths.
+#
+# Adding a version later is three steps: drop it in archives/, add a CNAME in
+# Spaceship pointing at asadchattha.netlify.app, and copy a block below.
+# ---------------------------------------------------------------------------
+
+[[redirects]]
+  from = "https://v1.asadchattha.com/*"
+  to = "/v1/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://v2.asadchattha.com/*"
+  to = "/v2/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://v3.asadchattha.com/*"
+  to = "/v3/:splat"
+  status = 200
+  force = true
