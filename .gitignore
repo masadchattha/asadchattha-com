@@ -22,3 +22,10 @@ docs/reference-bc-v1/
 # purchasers, plus ~142MB of another developer's source. Re-clone from
 # github.com/bchiang7 if they are needed again.
 docs/reference-bc-*/
+
+# Local Netlify folder
+.netlify
+
+# Archived versions are copied into main/public at build time by
+# main/scripts/sync-archives.mjs. Edit archives/vN, never these copies.
+main/public/v[0-9]*/
