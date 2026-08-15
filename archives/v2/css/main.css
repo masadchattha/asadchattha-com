@@ -1,0 +1,1818 @@
+/* =========================================================================
+   v2 — asadchattha.com
+   Hand-written from the original v2 Sass architecture. Partial order and class
+   names are kept so the lineage stays legible:
+     base · dotNav · mobileMenu · blockBtn · intro · about · services · skills
+     · experience · portfolio · contact · footer
+   Breakpoints are the original ten, all max-width:
+     1170 · 1000 · 900 · 768 · 660 · 600 · 480 · 440 · 400 · 330
+   ========================================================================= */
+
+/* ------------------------------------------------------------------ tokens */
+:root {
+  --black: #070707;
+  --dark-grey: #1b1b1b;
+  --mid-grey: #5b5b5b;
+  --darkest-grey: #555;
+  --light-grey: #777777;
+  --grey: #707070;
+  --white: #f2f2f2;
+  --almost-white: #cbcbcb;
+  --white-rgba: rgba(242, 242, 242, 0.3);
+  --blue: #00b7c7;
+  --blue-rest: #00909c;
+  --blue-bright: #00dded;
+  --purple: #4d0ce8;
+  --overlay: 0.61;
+
+  /* Chronicle Display, Gotham and Whitney are retail licences. Free stand-ins:
+     Playfair Display for the display serif, Montserrat for the uppercase
+     geometric, Figtree for body copy.
+
+     The stand-ins set optically HEAVIER than the originals at the same nominal
+     weight, so the numeric weights below are stepped down to match rendered
+     stroke, not the number.
+
+     Body face is Figtree, not Inter. Measured as rendered ink on the same
+     string against the real Whitney files: Inter cannot get light enough —
+     even at its thinnest it is +15.1% ink and +10.7% width against Whitney
+     Book, which is why the body copy read heavy at every weight we tried.
+     Figtree tracks Whitney across the whole range: Book +3.0%, Medium +0.6%,
+     Bold +2.7%. Montserrat stays for Gotham (Bold +4.6% ink / +1.2% width,
+     Medium +5.3% / +1.8%) and Playfair stays for Chronicle. */
+  --display: 'Playfair Display', Georgia, serif;
+  --sans-display: 'Montserrat', Helvetica, Arial, sans-serif;
+  --body: 'Figtree', Helvetica, Arial, sans-serif;
+
+  /* stand-in weights, named by the original face they stand in for */
+  --w-body: 300;          /* Whitney Book 400   */
+  --w-body-medium: 400;   /* Whitney Medium 500 */
+  --w-body-bold: 700;     /* Whitney Bold 700   */
+  --w-sans-medium: 600;   /* Gotham Medium 500  */
+  --w-sans-bold: 700;     /* Gotham Bold 700    */
+  --w-display: 600;       /* Chronicle Bold     */
+}
+
+/* -------------------------------------------------------------------- base */
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--body);
+  /* Whitney Book is the base weight for every paragraph on the page. */
+  font-weight: var(--w-body);
+  height: 100%;
+  color: var(--white);
+  background-color: var(--dark-grey);
+}
+
+/* The originals set no line-height on the headings, so they fall to each face's
+   `normal`: Chronicle and Gotham both land on 1.15, where Playfair falls to 1.33
+   and Montserrat to 1.22. Pinning 1.15 reproduces the original's leading. */
+h1 {
+  font-family: var(--display);
+  font-weight: var(--w-display);
+  line-height: 1.15;
+  margin: 0;
+}
+
+h2,
+h3 {
+  font-family: var(--sans-display);
+  font-weight: var(--w-sans-bold);
+  line-height: 1.15;
+  margin: 10px 0;
+}
+
+p {
+  margin: 0 0 10px;
+  font-family: var(--body);
+}
+
+/* `bolder` off a 300 base only reaches 400, which is nowhere near Whitney Bold */
+strong,
+b {
+  font-weight: var(--w-body-bold);
+}
+
+a {
+  text-decoration: none;
+  color: var(--white);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+.noScroll {
+  overflow: hidden;
+  height: 100%;
+}
+
+.center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+#site-body {
+  height: 100%;
+  overflow: visible;
+  position: relative;
+}
+
+.section {
+  width: 100%;
+  height: auto;
+  min-height: 700px;
+  padding: 0;
+  overflow: hidden;
+  color: var(--white);
+  position: relative;
+}
+
+.section:first-of-type { background-color: #0054c7; }
+.section:nth-of-type(odd) { background-color: var(--mid-grey); }
+.section:nth-of-type(even) { background-color: var(--dark-grey); }
+.section a { display: block; }
+
+.section .overlay-wrapper,
+.section .section-wrapper {
+  padding: 100px;
+}
+
+.section .overlay-wrapper h1,
+.section .section-wrapper h1 { font-size: 3em; }
+
+.section .overlay-wrapper p,
+.section .section-wrapper p {
+  font-size: 1.3em;
+  line-height: 1.5em;
+}
+
+.section .divider {
+  display: block;
+  margin: 30px 0;
+  width: 100px;
+  height: 2px;
+  background-color: var(--blue);
+}
+
+.section .center {
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+}
+
+.section .overlay-wrapper {
+  background: rgba(0, 0, 0, var(--overlay));
+  width: 100%;
+  height: 100%;
+}
+
+/* The four parallax backgrounds. The original drove these with skrollr; this
+   build uses an IntersectionObserver plus a rAF scroll handler.
+
+   The plate is exactly the size of its section, which is the original's
+   geometry (`.bg { width:100%; height:100%; background-size:cover }`). An
+   earlier pass made it 300px taller and offset it -150px so the parallax
+   could never scrape an edge — but `cover` on a taller box scales the photo
+   up to fill it, so the 1920x1280 plate was rendering ~1786px wide instead of
+   1440px, roughly 24% more zoomed than the original. Back to her box, so the
+   photo sits at its natural cover scale.
+
+   The parallax now moves the background-position inside the slack that cover
+   already leaves (the 3:2 plate is taller than the section once it is fitted
+   to the width), so there is still travel and still no exposed edge. */
+.bg {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.gap { background: transparent !important; }
+
+#intro-section .bg {
+  z-index: 0;
+  background-image: url('../img/bg-intro.jpg');
+}
+/* The original ships five plates per section (xl / lg / md / sm / xs) and swaps
+   them with plain background-image rules at L, MM, S660 and SM — no <picture>,
+   no srcset. Two plates were supplied here, so the xl carries every width down
+   to the SM breakpoint and the xs takes over below it, which is where the
+   original hands over to its own xs file. The intro keeps its single plate. */
+#services-section .bg { background-image: url('../img/services-xl.jpg'); }
+#experience-section .bg { background-image: url('../img/experience-xl.jpg'); }
+#contact-section .bg { background-image: url('../img/contact-xl.jpg'); }
+
+/* ------------------------------------------------------------------ dotNav */
+#dot-nav {
+  position: fixed;
+  right: 34px;
+  z-index: 1;
+  top: 50%;
+  bottom: auto;
+  transform: translateY(-50%);
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s ease;
+}
+
+#dot-nav.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+#dot-nav .dot-container { text-align: right; }
+
+#dot-nav a {
+  display: inline-block;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+#dot-nav a:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#dot-nav a span {
+  float: right;
+  display: inline-block;
+  transform: scale(0.6);
+}
+
+#dot-nav a:hover span,
+#dot-nav a:focus span { transform: scale(0.75); }
+
+#dot-nav a:hover .dot-label,
+#dot-nav a:focus .dot-label { opacity: 1; }
+
+#dot-nav a.is-selected .dot { background-color: var(--blue); }
+
+#dot-nav .dot {
+  position: relative;
+  top: 7px;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  transition: transform 0.2s, background-color 0.5s;
+  transform-origin: 50% 50%;
+}
+
+#dot-nav .dot-label {
+  position: relative;
+  top: 3px;
+  padding: 0.4em 0.5em;
+  color: var(--white);
+  font-family: var(--sans-display);
+  font-size: 0.85em;
+  font-weight: var(--w-sans-medium);
+  line-height: 1.15;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: transform 0.2s, opacity 0.2s;
+  transform-origin: 100% 50%;
+}
+
+/* -------------------------------------------------------------- mobileMenu */
+#toggle {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  height: 27px;
+  width: 30px;
+  cursor: pointer;
+  z-index: 100;
+  display: none;
+  transition: opacity 0.25s ease;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+#toggle:hover,
+#toggle:focus { opacity: 0.7; }
+
+#toggle.active .line { background: var(--white); }
+#toggle.active .top { transform: translateY(10px) translateX(0) rotate(45deg); }
+#toggle.active .middle { opacity: 0; }
+#toggle.active .bottom { transform: translateY(-10px) translateX(0) rotate(-45deg); }
+
+#toggle .line {
+  background: var(--white);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  width: 100%;
+  height: 3px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all 0.35s ease;
+}
+
+#toggle .line.middle { top: 10px; }
+#toggle .line.bottom { top: 20px; }
+
+.overlay {
+  position: fixed;
+  background: rgba(0, 183, 199, 0.95);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.overlay .logo {
+  color: var(--white);
+  font-family: var(--display);
+  font-weight: var(--w-display);
+  font-size: 30px;
+  margin: 14px 20px;
+}
+
+.overlay .logo .logo-img {
+  width: 35px;
+  margin-right: 10px;
+  position: relative;
+  top: 5px;
+}
+
+.overlay .overlay-menu {
+  position: relative;
+  height: 70%;
+  transform: translateY(-50%);
+  top: 45%;
+  font-size: 1.5em;
+  font-family: var(--sans-display);
+  font-weight: var(--w-sans-bold);
+  text-align: center;
+}
+
+.overlay .menu-container {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  display: inline-block;
+  position: relative;
+  height: 100%;
+}
+
+.overlay .menu-item {
+  display: block;
+  height: calc(100% / 7);
+  min-height: 50px;
+  position: relative;
+  opacity: 0;
+}
+
+.overlay .menu-item a {
+  position: relative;
+  color: var(--white);
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+
+.overlay .menu-item a:before,
+.overlay .menu-item a:after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  top: 50%;
+  background: var(--white);
+  margin-top: -2px;
+  left: -3px;
+}
+
+.overlay .menu-item a:after { transition: width 0.7s cubic-bezier(0.22, 0.61, 0.36, 1); }
+
+.overlay .menu-item a:hover:before,
+.overlay .menu-item a:hover:after,
+.overlay .menu-item a:focus:before,
+.overlay .menu-item a:focus:after { width: 105%; }
+
+.overlay .menu-item a:hover:before,
+.overlay .menu-item a:focus:before { transition: width 0.5s cubic-bezier(0.22, 0.61, 0.36, 1); }
+
+.overlay .menu-item a:hover:after,
+.overlay .menu-item a:focus:after {
+  background: transparent;
+  transition: 0s;
+}
+
+@keyframes fadeInTop {
+  0% { opacity: 0; bottom: 20%; }
+  100% { opacity: 1; bottom: 0; }
+}
+
+/* ---------------------------------------------------------------- blockBtn */
+.block-btn {
+  display: block;
+  width: 100%;
+  min-height: 100px;
+  overflow: hidden;
+  color: var(--white);
+  position: relative;
+  background: var(--blue-rest);
+  font-family: var(--sans-display);
+  font-size: 1em;
+  font-weight: var(--w-sans-bold);
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.15;
+  letter-spacing: 1px;
+  transition: background-color 0.5s linear;
+}
+
+.block-btn:hover,
+.block-btn:focus {
+  background: var(--blue);
+  transition: all 0.3s ease;
+}
+
+.block-btn:hover .text,
+.block-btn:focus .text {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate3d(0, 4em, 0) scale(0.25);
+}
+
+.block-btn:hover .icon,
+.block-btn:focus .icon {
+  opacity: 1;
+  visibility: visible;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.block-btn .text,
+.block-btn .icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.block-btn .text {
+  margin: 40px auto;
+  opacity: 1;
+  visibility: visible;
+  transition: transform 0.4s cubic-bezier(0.425, -0.195, 0.005, 1.215), opacity 0.13333s linear;
+  transform: scale(1);
+}
+
+.block-btn .icon {
+  width: 50px;
+  margin: 25px auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.4s cubic-bezier(0.425, -0.195, 0.005, 1.215), opacity 0.4s linear;
+  transform: translate3d(0, -4em, 0) scale(0);
+}
+
+/* ------------------------------------------------------------------- intro */
+#intro-section .intro-wrapper {
+  padding: 0 0 20px;
+}
+
+#intro-section .intro-body {
+  width: 100%;
+  height: 101vh;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes reveal-up {
+  0% { opacity: 1; transform: translateY(100%); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes reveal-down {
+  0% { opacity: 1; transform: translateY(-100%); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes loading-mask {
+  0%, 100% { transform: scaleX(0); }
+  40%, 60% { transform: scaleX(1); }
+}
+
+#intro-section .intro-content {
+  text-align: center;
+  padding: 0 5%;
+  width: 100%;
+  position: relative;
+  top: -5%;
+}
+
+#intro-section .heading,
+#intro-section .heading .name,
+#intro-section .subtext,
+#intro-section .btn {
+  opacity: 0;
+  animation-duration: 0.8s;
+  animation-delay: 0.3s;
+  animation-fill-mode: forwards;
+}
+
+#intro-section .heading {
+  font-size: 4.5em;
+  font-weight: var(--w-display);
+  position: relative;
+  padding-bottom: 10px;
+  color: transparent;
+  overflow: hidden;
+  opacity: 1;
+}
+
+#intro-section .heading:after {
+  content: attr(data-content);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  color: var(--white);
+  animation-name: reveal-up;
+  animation-fill-mode: backwards;
+  animation-duration: 0.4s;
+  animation-delay: 0.7s;
+}
+
+#intro-section .heading .name {
+  position: relative;
+  display: inline-block;
+  opacity: 1;
+}
+
+#intro-section .heading .name:before {
+  /* the rule that sweeps out and back under the name */
+  content: '';
+  position: absolute;
+  top: calc(100% + 8px);
+  left: -1em;
+  height: 2px;
+  width: calc(100% + 2em);
+  background-color: var(--white);
+  animation: loading-mask 1s 0.3s both;
+}
+
+#intro-section .action-wrapper { overflow: hidden; }
+
+#intro-section .subtext {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  animation-name: reveal-down;
+  animation-duration: 0.4s;
+  animation-delay: 0.7s;
+}
+
+#intro-section .subtext .btn {
+  display: inline-block;
+  padding: 1.2em 0;
+  font-size: 1.3rem;
+  font-weight: var(--w-sans-medium);
+  line-height: 1.5;
+  color: var(--white);
+  /* uppercase turned "iOS" into "IOS"; the string is typed in caps in the
+     markup instead so the lowercase i survives. Letter-spacing is unchanged. */
+  text-transform: none;
+  font-family: var(--sans-display);
+  opacity: 1;
+  margin: 0;
+}
+
+#intro-section .scroll-down-wrapper {
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  text-align: center;
+  color: var(--white);
+}
+
+#intro-section .scroll-down {
+  display: block;
+  width: 70px;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+}
+
+#intro-section .scroll-down:hover .logo,
+#intro-section .scroll-down:focus .logo { opacity: 0; }
+
+#intro-section .scroll-down:hover .scroll-down-text,
+#intro-section .scroll-down:focus .scroll-down-text {
+  opacity: 1;
+  visibility: visible;
+}
+
+#intro-section .scroll-down .logo {
+  width: 35px;
+  transition: opacity 0.5s ease, visibility 0.5s;
+}
+
+#intro-section .scroll-down-text {
+  color: var(--white);
+  font-family: var(--sans-display);
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: var(--w-sans-bold);
+  line-height: 1.15;
+  text-align: center;
+  height: 100%;
+  opacity: 0;
+  padding-top: 0.5em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  transition: opacity 0.5s ease, visibility 0.5s;
+  visibility: hidden;
+  width: 100%;
+}
+
+#intro-section .chevron {
+  transform: rotate(90deg);
+  height: 20px;
+  display: block;
+  margin: 10px auto;
+}
+
+/* ------------------------------------------------------------------- about */
+/* h3, so the original is Gotham Medium 500 */
+#about-section .section-subheading {
+  width: 60%;
+  font-size: 1.2em;
+  font-weight: var(--w-sans-medium);
+  line-height: 1.5;
+  margin-top: 1em;
+}
+
+#about-section .about-wrapper { padding-right: 20px; }
+
+#about-section .about-text-wrapper {
+  display: inline-block;
+  width: 60%;
+  vertical-align: top;
+}
+
+#about-section .about-text {
+  margin-bottom: 10px;
+  font-size: 1.15em;
+}
+
+/* .section a is display:block, which would break a link mid-paragraph */
+#about-section .about-text a {
+  display: inline;
+  color: var(--blue);
+  transition: color 0.3s ease;
+}
+
+#about-section .about-text a:hover,
+#about-section .about-text a:focus { color: var(--blue-bright); }
+
+#about-section .headshot {
+  display: inline-block;
+  width: 35%;
+  height: auto;
+  border-radius: 50%;
+  margin-top: -100px;
+  float: right;
+  max-width: 450px;
+}
+
+/* ---------------------------------------------------------------- services */
+#services-section a {
+  display: inline-block;
+  position: relative;
+}
+
+#services-section a:after {
+  content: '';
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  border-width: 0 0 1px;
+  border-style: solid;
+  border-color: var(--almost-white);
+}
+
+#services-section .services-wrapper {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+#services-section .service-row {
+  width: 100%;
+  height: 50%;
+}
+
+#services-section .service-row:nth-of-type(odd) { border-bottom: 1px solid var(--white-rgba); }
+#services-section .service-row:nth-of-type(even) .service-column { padding-top: 40px; }
+
+#services-section .service-column {
+  display: inline-block;
+  vertical-align: top;
+  width: 49%;
+  height: 100%;
+  padding: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#services-section .service-column:nth-of-type(even) { border-left: 1px solid var(--white-rgba); }
+
+#services-section .sprite {
+  width: 40px;
+  height: 40px;
+  margin-right: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  top: -3px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100%;
+}
+
+#services-section .sprite.build { background-image: url('../img/icons/smartphone.svg'); }
+#services-section .sprite.pay { background-image: url('../img/icons/credit-card.svg'); }
+#services-section .sprite.secure { background-image: url('../img/icons/shield-check.svg'); }
+#services-section .sprite.ship { background-image: url('../img/icons/rocket.svg'); }
+
+/* text-transform is deliberately none: the copy is typed in caps in the markup
+   so the lowercase i in "iOS" survives. The letter-spacing is unchanged. */
+#services-section .service-heading {
+  font-family: var(--sans-display);
+  text-transform: none;
+  line-height: 1.15;
+  margin: 0 0 30px;
+  font-size: 20px;
+  display: inline-block;
+}
+
+#services-section .service-text {
+  font-size: 1.1em;
+  margin-bottom: 20px;
+  white-space: initial;
+}
+
+/* ------------------------------------------------------------------ skills */
+#skills-section .skills-flex-wrapper,
+#skills-section .flex-item,
+#skills-section .check-wrapper { display: flex; }
+
+#skills-section .skills-flex-wrapper {
+  font: var(--w-body) 30px var(--body);
+  height: 17em;
+  flex-flow: column wrap;
+}
+
+#skills-section .skills-heading {
+  font-family: var(--sans-display);
+  text-transform: uppercase;
+  font-weight: var(--w-sans-bold);
+  font-size: 1.5vw;
+  line-height: 1.15;
+}
+
+#skills-section .skills-heading .sprite {
+  width: 35px;
+  height: 35px;
+  margin-right: 10px;
+  position: relative;
+  top: 7px;
+  display: inline-block;
+  vertical-align: text-bottom;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100%;
+}
+
+#skills-section .sprite.dev { background-image: url('../img/icons/code-xml.svg'); }
+#skills-section .sprite.stack { background-image: url('../img/icons/wallet.svg'); }
+#skills-section .sprite.tools { background-image: url('../img/icons/wrench.svg'); }
+#skills-section .sprite.knowledge { background-image: url('../img/icons/lightbulb.svg'); }
+
+#skills-section .flex-item {
+  flex: 0 0 auto;
+  min-height: 200px;
+  background: transparent;
+  padding: 15px;
+}
+
+#skills-section .flex-item:nth-child(1) {
+  width: 40%;
+  max-width: 400px;
+  min-height: 450px;
+}
+
+#skills-section .flex-item:nth-child(2) {
+  width: 60%;
+  min-height: 151px;
+}
+
+#skills-section .flex-item:nth-child(3) {
+  width: 60%;
+  min-height: 299px;
+}
+
+#skills-section .dev-wrapper { display: block; }
+
+#skills-section .dev-item {
+  display: inline-block;
+  border: 2px solid rgba(57, 57, 57, 0.5);
+  border-radius: 50%;
+  text-align: center;
+  margin: 10px 10px 10px 0;
+  padding: 0;
+  width: 100px;
+  height: 100px;
+  line-height: 7;
+  font-size: 14px;
+}
+
+#skills-section .stack-wrapper { display: block; }
+
+#skills-section .stack-item {
+  display: inline-block;
+  margin: 10px;
+}
+
+/* The originals sat on a light grey band, so a plain greyscale was enough.
+   This group sits on #1b1b1b and one of the marks is solid black, so the logos
+   are knocked out to white at rest and simply brighten on hover. */
+#skills-section .item-img {
+  height: 40px;
+  filter: grayscale(100%) brightness(0) invert(1);
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+#skills-section .stack-item:hover .item-img { opacity: 1; }
+
+#skills-section .check-wrapper .tools-wrapper,
+#skills-section .check-wrapper .knowledge-wrapper {
+  width: 50%;
+  display: inline-block;
+  vertical-align: top;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#skills-section .list {
+  margin-top: 30px;
+  margin-left: 20px;
+}
+
+#skills-section .list-item {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+#skills-section .item-svg {
+  margin-right: 10px;
+  width: 12px;
+  height: 12px;
+  position: relative;
+  top: 1px;
+}
+
+/* -------------------------------------------------------------- experience */
+#experience-section .experience-description {
+  padding: 0 100px;
+  font-size: 1.2em;
+}
+
+#experience-section .experience-description a {
+  display: inline-block;
+  position: relative;
+  font-weight: var(--w-body-medium);
+  transition: all 0.3s ease;
+}
+
+#experience-section .experience-description a:after {
+  content: '';
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  border-width: 0 0 1px;
+  border-style: solid;
+  border-color: var(--white);
+  transition: all 0.3s ease;
+}
+
+#experience-section .experience-wrapper { padding: 30px; }
+
+#timeline {
+  position: relative;
+  padding: 2em 0;
+  width: 100%;
+  max-width: 1170px;
+  margin: 0 auto;
+}
+
+#timeline:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: calc(50% - 1px);
+  height: 100%;
+  width: 2px;
+  background: var(--blue);
+}
+
+#timeline:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.timeline-block {
+  position: relative;
+  transition: all 0.3s ease;
+  margin: 1em 0;
+}
+
+.timeline-block:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.timeline-block:first-child { margin-top: 0; }
+.timeline-block:last-child { margin-bottom: 0; }
+
+.timeline-block:nth-child(odd) .timeline-content { float: left; }
+
+.timeline-block:nth-child(odd) .timeline-content:before {
+  top: 24px;
+  left: 100%;
+  border-color: transparent;
+  border-left-color: var(--dark-grey);
+}
+
+.timeline-block:nth-child(even) .date {
+  text-align: right;
+  left: auto;
+  right: 55%;
+}
+
+.timeline-img {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 15px;
+  left: 50%;
+  margin-left: -25px;
+  border-radius: 50%;
+  background: #212121;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.timeline-img .sprite {
+  display: block;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  margin-left: -12px;
+  margin-top: -12px;
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.timeline-img .sprite.industry { background-image: url('../img/icons/briefcase.svg'); }
+.timeline-img .sprite.university { background-image: url('../img/icons/graduation-cap.svg'); }
+
+.timeline-content {
+  float: right;
+  position: relative;
+  background: var(--dark-grey);
+  border-radius: 3px;
+  margin-left: 0;
+  padding: 1.5em;
+  width: 45%;
+  opacity: 0.85;
+  transition: all 0.3s ease;
+}
+
+.timeline-content:hover,
+.timeline-content:focus-within { opacity: 1; }
+
+.timeline-content:hover + .timeline-img,
+.timeline-content:focus-within + .timeline-img { background: var(--blue); }
+
+.timeline-content:before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  right: 100%;
+  height: 0;
+  width: 0;
+  border: 15px solid transparent;
+  border-right-color: var(--dark-grey);
+}
+
+.timeline-content:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* text-transform is none and the copy is typed in caps in the markup, so the
+   lowercase i in "iOS Engineer" survives. Letter-spacing is unchanged. */
+.timeline-content .position {
+  color: var(--white);
+  margin: 5px 0 10px;
+  font-size: 18px;
+  display: inline-block;
+  text-transform: none;
+  line-height: 1.15;
+  font-family: var(--sans-display);
+}
+
+.timeline-content .company {
+  margin: 0 0 10px;
+  font-size: 15px;
+  font-weight: var(--w-sans-medium);
+  color: var(--blue);
+}
+
+/* The section-level `.section .overlay-wrapper p { font-size: 1.3em }` is
+   (0,2,1) and outranked a bare `.timeline-content .job-desc`, so the timeline
+   body copy was rendering at 1.3em. The original wins this on two IDs in its
+   compiled selector; the id here does the same job. */
+#experience-section .timeline-content .job-desc {
+  margin: 1em 0;
+  font-size: 1em;
+  line-height: 1.5;
+}
+
+.timeline-block .date {
+  font-size: 1em;
+  font-weight: var(--w-sans-medium);
+  display: inline-block;
+  color: var(--white);
+  font-family: var(--sans-display);
+  text-transform: uppercase;
+  line-height: 1.15;
+  position: absolute;
+  width: 100%;
+  left: 55%;
+  top: 30px;
+}
+
+.timeline-block:nth-child(odd) .timeline-content .date {
+  left: auto;
+  text-align: right;
+  right: -33%;
+}
+
+.down-arrow {
+  display: block;
+  margin: 0 auto;
+  border-color: transparent;
+  border-top-color: var(--blue);
+  border-style: solid;
+  border-width: 15px 7px 0;
+  width: 0;
+  height: 0;
+  position: relative;
+  line-height: 0;
+}
+
+/* --------------------------------------------------------------- portfolio */
+#portfolio-section .section-wrapper { padding-bottom: 50px; }
+#portfolio-section a { display: inline-block; }
+#portfolio-section .portfolio-item-wrapper .divider:last-of-type { display: none; }
+
+#portfolio-section .portfolio-row {
+  margin: 0;
+  padding-top: 50px;
+  display: block;
+}
+
+#portfolio-section .screenshots {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  width: 95%;
+  margin-left: 10px;
+}
+
+#portfolio-section .screenshots:after {
+  display: block;
+  padding-top: 45.5%;
+  content: "";
+}
+
+/* The default for an iOS portfolio: three or four devices in a row.
+
+   The original overlaps hers with `margin-right: -20px`, but her plates are
+   cropped screenshots with square edges where ours are full device frames with
+   a rounded chassis and a drop shadow, so an overlap reads as one device
+   clipping into the next rather than as a stack. They sit side by side with a
+   small fixed gap instead. The stair-step down the row is kept — it still
+   reads as a set without the overlap doing the work.
+
+   The artwork is transparent RGBA straight out of tools/build_devices.py, so
+   the shadow follows the device silhouette rather than a rectangle and there
+   is no border-radius to fake. */
+#portfolio-section .screenshots.devices {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  /* the stair-step pushes the last device down 45px, and `top` does not reserve
+     layout height, so the room the original bought with a percentage `:after`
+     spacer is bought here explicitly */
+  padding-bottom: 60px;
+}
+
+#portfolio-section .screenshots.devices:after { content: none; }
+
+#portfolio-section .img-device {
+  position: relative;
+  top: 0;
+  border: 0;
+  /* Hers is 26%, but her plates are cropped screenshots at 1:1.72 while ours are
+     full device frames at 1:2.06. At an equal width ours stand ~106px taller, so
+     21.5% is what actually matches her rendered mass on desktop. */
+  flex: 0 0 21.5%;
+  width: 21.5%;
+  height: auto;
+  /* a flex item's automatic minimum size falls back to the image's intrinsic
+     width the moment `width` stops being a definite length, which pinned every
+     device to the full row on phones */
+  min-width: 0;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.75));
+}
+
+#portfolio-section .img-device:nth-of-type(2) { top: 15px; }
+#portfolio-section .img-device:nth-of-type(3) { top: 30px; }
+#portfolio-section .img-device:nth-of-type(4) { top: 45px; }
+
+/* Kept from the original for any web project that ever lands here. */
+#portfolio-section .img-lg,
+#portfolio-section .img-md,
+#portfolio-section .img-sm {
+  border: 0;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border-radius: 2px;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.75);
+}
+
+#portfolio-section .img-lg { width: 70%; left: 0; z-index: 1; }
+#portfolio-section .img-md { width: 27%; right: 14%; z-index: 2; }
+#portfolio-section .img-sm {
+  width: 15%;
+  right: 1rem;
+  z-index: 3;
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.75);
+}
+
+#portfolio-section .description-title-container {
+  position: relative;
+  width: 90%;
+  margin-top: 30px;
+  margin-left: 1em;
+  align-items: baseline;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-content: stretch;
+}
+
+#portfolio-section .description-title {
+  flex: 1;
+  margin-bottom: 20px;
+  font-family: var(--sans-display);
+  text-transform: uppercase;
+  line-height: 1.15;
+  font-size: 1.5em;
+}
+
+#portfolio-section .description-buttons a {
+  padding: 10px 15px;
+  background: transparent;
+  border: 2px solid var(--blue);
+  border-radius: 3px;
+  margin: 0 5px;
+  color: var(--blue);
+  font-family: var(--sans-display);
+  font-weight: var(--w-sans-medium);
+  font-size: 1em;
+  line-height: 1.15;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+#portfolio-section .description-buttons a:hover,
+#portfolio-section .description-buttons a:focus {
+  background: var(--blue);
+  color: var(--white);
+}
+
+#portfolio-section .portfolio-description {
+  display: block;
+  width: 90%;
+  margin: 15px 0 25px 1rem;
+  font-size: 1.1em;
+  color: var(--almost-white);
+}
+
+#portfolio-section .portfolio-description a {
+  position: relative;
+  font-weight: var(--w-body-medium);
+  color: var(--almost-white);
+}
+
+#portfolio-section .portfolio-description a:after {
+  content: '';
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  border-width: 0 0 1px;
+  border-style: solid;
+  border-color: var(--almost-white);
+}
+
+#portfolio-section .used {
+  display: block;
+  width: 90%;
+  font-family: var(--sans-display);
+  margin-top: 30px;
+  margin-bottom: 100px;
+}
+
+#portfolio-section .used-items { margin-left: 1em; }
+
+#portfolio-section .used-item {
+  display: inline-block;
+  padding: 7px 7px 5px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  color: var(--light-grey);
+  background: #333;
+  border-radius: 3px;
+  /* No text-transform: it ate the lowercase letters in watchOS and SwiftUI the
+     same way it ate iOS. Tags are typed in caps in the markup instead. */
+  text-transform: none;
+  font-size: 10px;
+  /* 1.15 is the original's leading here; left to `normal` the tag pills sat a
+     touch taller than hers. */
+  line-height: 1.15;
+  font-weight: var(--w-sans-medium);
+  letter-spacing: 0.5px;
+}
+
+/* ----------------------------------------------------------------- contact */
+#contact-section .contact-description {
+  margin: 0 auto;
+  max-width: 440px;
+  font-size: 1.2em;
+}
+
+#contact-section .form-wrapper {
+  width: 500px;
+  margin: 20px auto;
+  padding: 0;
+}
+
+#contact-section .input-wrapper {
+  padding: 0;
+  margin-bottom: 10px;
+  position: relative;
+  /* Named property, not `all`. Padding is the only thing that changes here,
+     and `all` also caught the textarea's JS-driven height. */
+  transition: padding 0.25s ease;
+}
+
+#contact-section .input-wrapper:before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--grey);
+  bottom: 0;
+  left: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+#contact-section .input-wrapper:after {
+  background-color: var(--blue);
+  content: "";
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+#contact-section .input-label {
+  display: block;
+  font-family: var(--sans-display);
+  font-size: 0.9em;
+  font-weight: var(--w-sans-bold);
+  line-height: 1.15;
+  text-transform: uppercase;
+  transform: translateY(25px);
+  color: var(--white);
+  margin-bottom: 10px;
+  transition: font-size 0.5s ease-in-out, transform 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+#contact-section .contact-input {
+  position: relative;
+  background: transparent;
+  width: 100%;
+  border: none;
+  padding: 20px 0 10px;
+  margin-bottom: -10px;
+  font-size: 1em;
+  line-height: 1.3;
+  color: var(--white);
+  font-family: var(--body);
+  resize: none;
+  display: block;
+  overflow: hidden;
+  /* Critically NOT `all`: the message box's height is rewritten inline by the
+     auto-expand handler on every keystroke, and animating that made the field
+     shiver as you typed. Only the padding shift on focus animates. */
+  transition: padding 0.25s ease;
+}
+
+#contact-section .contact-input:focus {
+  outline: 0;
+  color: var(--white);
+}
+
+/* No transform nudge on the input itself. Focus already changes the wrapper
+   padding, the label size and the label position in the same frame, so adding
+   a translateY on top made the caret and the textarea's clipped content
+   repaint against a moving box — that was the flicker. The acknowledgement is
+   the label floating up and the blue rule sweeping across, which is what the
+   original did too. */
+
+#contact-section .is-active,
+#contact-section .is-completed { padding: 15px 0 0; }
+#contact-section .is-active:after { width: 100%; }
+#contact-section .is-active .input-label { color: var(--blue); }
+
+#contact-section .is-completed .input-label {
+  font-size: 0.75em;
+  font-weight: var(--w-sans-bold);
+  transform: translateY(0);
+  padding: 0;
+}
+
+#contact-section .is-completed .contact-input { padding-top: 10px; }
+
+#contact-section .message-btn {
+  display: block;
+  text-align: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: var(--w-sans-bold);
+  font-size: 14px;
+  font-family: var(--sans-display);
+  line-height: 1.5;
+  padding: 12px 20px 10px;
+  margin: 70px auto 0;
+  color: var(--blue);
+  background: transparent;
+  border: 2px solid var(--blue);
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+#contact-section .message-btn:hover,
+#contact-section .message-btn:focus {
+  color: var(--white);
+  background: var(--blue);
+}
+
+#contact-section .message-btn[disabled] {
+  opacity: 0.5;
+  cursor: progress;
+}
+
+#contact-section #message-label { margin-bottom: 10px; }
+
+/* The original posted the form straight to Formspree and gave no feedback at
+   all. This build submits with fetch and reports back here. */
+#contact-section .form-status {
+  margin: 25px auto 0;
+  max-width: 500px;
+  text-align: center;
+  font-size: 1em !important;
+  min-height: 1.5em;
+}
+
+#contact-section .form-status.is-error { color: #ff8a8a; }
+#contact-section .form-status.is-error a {
+  color: #ff8a8a;
+  text-decoration: underline;
+}
+#contact-section .form-status.is-error a:hover { color: var(--white); }
+#contact-section .form-status.is-success { color: var(--blue); }
+
+/* ------------------------------------------------------------------ footer */
+#footer {
+  background: linear-gradient(45deg, var(--blue) 0%, var(--purple) 100%);
+  height: 200px;
+  min-height: 100px;
+  color: var(--white);
+}
+
+#footer .section-wrapper { padding: 30px 0 40px; }
+
+#footer .soc {
+  display: block;
+  font-size: 0;
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+}
+
+#footer .soc-item {
+  display: inline-block;
+  margin: 1rem 0.5rem;
+}
+
+/* The original declared the transition inside :hover, so the icon snapped back
+   when the pointer left. It lives on the base rule here. */
+#footer .soc-item a {
+  display: block;
+  position: relative;
+  color: var(--white);
+  fill: var(--white);
+  width: 2.5rem;
+  height: 2.5rem;
+  transition: transform 0.3s ease;
+}
+
+#footer .soc-item a:hover,
+#footer .soc-item a:focus { transform: scale(1.1) translateY(-5px); }
+
+/* Two earlier passes matched the CONTAINER to the original and the icons still
+   read too large, because the container was never the problem. Measured on a
+   200px raster (scratchpad glyph probe), the mark inside her 512-unit viewBox
+   covers only 109-144px of it — 55-72%, averaging 63% — while every mark in
+   this set is drawn edge to edge and covers 92-100%. On the same 2.5rem anchor
+   that is a ~25px glyph against a ~39px one.
+
+   So the img is sized to 65% of the anchor and centred, which puts the rendered
+   mark at 26px against her measured 24-27px. `object-fit: contain` keeps the
+   non-square marks (the envelope) from stretching.
+
+   Her .instagram / .github 2.3rem trim is dropped on purpose: it existed to
+   tame the two of HER marks that filled more of their own viewBox. Every mark
+   here fills its box equally, so trimming those two would now make them the odd
+   ones out. */
+#footer .soc-item img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 65%;
+  height: 65%;
+  object-fit: contain;
+  display: block;
+}
+
+#footer .copyright-wrapper {
+  margin-top: 25px;
+  font-size: 13px;
+  color: var(--white);
+  font-weight: var(--w-body-medium);
+}
+
+/* No font-size here on purpose. The original leaves the paragraph to the
+   section rule (1.3em of the wrapper's 13px, so 16.9px), which drops to 13px
+   at 480 where that rule becomes 1em. Pinning it to 13px made the line half
+   the size the original renders on a desktop. */
+#footer .copyright-wrapper p {
+  margin: 0;
+  color: var(--white);
+}
+
+/* ================================================================ 1170px */
+@media only screen and (max-width: 1170px) {
+  #skills-section .flex-item { padding-right: 0; }
+  #skills-section .dev-item {
+    width: 80px;
+    height: 80px;
+    font-size: 14px;
+    line-height: 5.5;
+    margin: 5px 5px 5px 0;
+  }
+  #skills-section .flex-item:nth-child(1) { width: 37%; }
+  #skills-section .stack-item { margin: 10px 5px; }
+  #services-section .service-heading { font-size: 2vw; }
+  #experience-section .experience-description { padding: 0; }
+  #contact-section .contact-description { padding: 0; }
+  .timeline-block:nth-child(odd) { margin-top: 0; margin-bottom: 2em; }
+  .timeline-block:nth-child(odd) .timeline-content { right: 10px; }
+  .timeline-content { left: 0; padding-bottom: 2.5em; }
+}
+
+/* ================================================================ 1000px */
+@media only screen and (max-width: 1000px) {
+  #about-section .section-subheading { width: 100%; }
+  #about-section .headshot { margin-top: 0; }
+  #services-section .services-wrapper { padding: 0; }
+  #skills-section .flex-item:nth-child(1) { width: 45%; }
+  #skills-section .flex-item:nth-child(2),
+  #skills-section .flex-item:nth-child(3) { width: 55%; }
+  #experience-section .experience-wrapper { padding-left: 0; }
+
+  #timeline:before { left: 20px; margin-left: 0; }
+
+  .timeline-img { top: 5px; left: 20px; }
+
+  .timeline-content {
+    margin-left: 70px;
+    right: auto;
+    width: auto;
+  }
+
+  .timeline-block:nth-child(odd) .timeline-content { right: auto; }
+
+  .timeline-block:nth-child(odd) .timeline-content:before {
+    top: 16px;
+    left: auto;
+    right: 100%;
+    border-color: transparent;
+    border-right-color: var(--dark-grey);
+  }
+
+  .timeline-content:before { top: 16px; }
+
+  .timeline-block .date,
+  .timeline-block:nth-child(even) .date,
+  .timeline-block:nth-child(odd) .timeline-content .date {
+    font-size: 14px;
+    color: var(--light-grey);
+    text-align: left;
+    position: absolute;
+    top: auto;
+    bottom: 20px;
+    left: 95px;
+    right: auto;
+  }
+
+  .down-arrow { margin-left: 13.5px; }
+}
+
+/* ================================================================= 900px */
+@media only screen and (max-width: 900px) {
+  .section .overlay-wrapper,
+  .section .section-wrapper { padding: 100px 50px; }
+  #about-section .about-wrapper { padding: 0; }
+  #about-section .about-text-wrapper { width: 100%; }
+  #about-section .headshot {
+    float: none;
+    margin: 10px 0 40px;
+    width: 300px;
+  }
+  #portfolio-section .screenshots.devices { gap: 12px; }
+}
+
+/* ================================================================= 768px */
+@media only screen and (max-width: 768px) {
+  #dot-nav { display: none; }
+  #toggle { display: block; }
+
+  .overlay.open {
+    height: 100%;
+    z-index: 10;
+    opacity: 1;
+    visibility: visible;
+    overflow: hidden;
+  }
+
+  .overlay.open .menu-item {
+    animation: fadeInTop 0.5s ease forwards;
+    animation-delay: 0.35s;
+  }
+
+  .overlay.open .menu-item:nth-of-type(2) { animation-delay: 0.4s; }
+  .overlay.open .menu-item:nth-of-type(3) { animation-delay: 0.45s; }
+  .overlay.open .menu-item:nth-of-type(4) { animation-delay: 0.5s; }
+  .overlay.open .menu-item:nth-of-type(5) { animation-delay: 0.55s; }
+  .overlay.open .menu-item:nth-of-type(6) { animation-delay: 0.6s; }
+  .overlay.open .menu-item:nth-of-type(7) { animation-delay: 0.65s; }
+
+  #intro-section .heading .name:before { top: calc(100% + 18px); }
+
+  #skills-section .skills-flex-wrapper {
+    display: block;
+    height: auto;
+  }
+  #skills-section .skills-heading { font-size: 18px; }
+  #skills-section .flex-item:nth-child(1) { width: 100%; min-height: 50px; }
+  #skills-section .flex-item:nth-child(2),
+  #skills-section .flex-item:nth-child(3) { width: 100%; }
+  #skills-section .dev-item {
+    width: 100px;
+    height: 100px;
+    line-height: 7;
+    margin: 1%;
+  }
+
+  #portfolio-section .description-title-container { width: 95%; }
+
+  /* Below 768 the devices stop being a fixed share of the row and simply split
+     it evenly, so a three-up row and a four-up row both reach the right edge
+     with the same gap between them. */
+  #portfolio-section .screenshots.devices { gap: 10px; }
+  #portfolio-section .img-device { flex: 1 1 0; width: auto; }
+
+  #portfolio-section .used { margin-bottom: 70px; }
+}
+
+/* ================================================================= 660px */
+@media only screen and (max-width: 660px) {
+  #services-section .service-row { height: auto; }
+  #services-section .service-row:nth-of-type(odd) { border: none; }
+  #services-section .service-row:nth-of-type(even) .service-column { padding-top: 20px; }
+  #services-section .service-column {
+    display: block;
+    width: 100%;
+    border: none;
+  }
+  #services-section .service-column:nth-of-type(even) { border: none; }
+  #services-section .service-heading { font-size: 4vw; }
+
+  #portfolio-section .screenshots { margin-left: 0; }
+  #portfolio-section .description-title-container { width: 100%; margin-left: 0; }
+  #portfolio-section .description-buttons a {
+    font-size: 14px;
+    padding: 7px 10px;
+    position: relative;
+    top: -5px;
+  }
+  #portfolio-section .portfolio-description {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+  #portfolio-section .used-items { margin-left: 0; }
+
+  #footer .section-wrapper { padding: 30px 0; }
+}
+
+/* ================================================================= 600px */
+@media only screen and (max-width: 600px) {
+  #experience-section .experience-wrapper { padding: 30px 0; }
+  #portfolio-section .description-title-container { display: block; }
+  #portfolio-section .description-buttons a { margin: 0 10px 30px 0; top: 0; }
+  #portfolio-section .img-device:nth-of-type(2) { top: 10px; }
+  #portfolio-section .img-device:nth-of-type(3) { top: 20px; }
+  #portfolio-section .img-device:nth-of-type(4) { top: 30px; }
+  #portfolio-section .screenshots.devices { padding-bottom: 45px; }
+  #contact-section .form-wrapper { width: 90%; }
+}
+
+/* ================================================================= 480px */
+@media only screen and (max-width: 480px) {
+  .section .overlay-wrapper p,
+  .section .section-wrapper p { font-size: 1em; }
+  #services-section .service-column { padding: 20px 0; }
+  #skills-section .flex-item { padding: 0; }
+  #skills-section .dev-item { width: 80px; height: 80px; line-height: 5.5; }
+  #services-section .bg { background-image: url('../img/services-xs.jpg'); }
+  #experience-section .bg { background-image: url('../img/experience-xs.jpg'); }
+  #contact-section .bg { background-image: url('../img/contact-xs.jpg'); }
+  #intro-section .heading { font-size: 3.4em; }
+  #intro-section .subtext .btn { font-size: 1em; }
+  #portfolio-section .portfolio-description { font-size: 1em; }
+  #portfolio-section .screenshots.devices { gap: 8px; padding-bottom: 45px; }
+  #contact-section .input-wrapper { margin-bottom: 5px; }
+
+  #timeline:before { left: 10px; }
+  .timeline-img { width: 40px; height: 40px; top: 10px; left: 15px; }
+  .timeline-img .sprite {
+    width: 20px;
+    height: 20px;
+    margin-left: -10px;
+    margin-top: -10px;
+  }
+  .timeline-content { margin-left: 50px; padding: 1.5em 1em 2.5em; }
+  .timeline-block .date,
+  .timeline-block:nth-child(even) .date,
+  .timeline-block:nth-child(odd) .timeline-content .date { left: 66px; }
+  .down-arrow { margin-left: 3.5px; }
+}
+
+/* ================================================================= 440px */
+@media only screen and (max-width: 440px) {
+  #skills-section .flex-item { display: block; }
+  #skills-section .check-wrapper .tools-wrapper,
+  #skills-section .check-wrapper .knowledge-wrapper { display: block; width: 100%; }
+  #services-section .service-heading { font-size: 16px; }
+}
+
+/* ================================================================= 400px */
+@media only screen and (max-width: 400px) {
+  .section .overlay-wrapper,
+  .section .section-wrapper { padding: 100px 25px; }
+  #about-section .headshot { width: 250px; }
+  #services-section .sprite { width: 35px; height: 35px; }
+  #portfolio-section .used { margin-bottom: 50px; }
+  .overlay .logo { font-size: 24px; margin: 17px 20px; }
+  .overlay .logo .logo-img { width: 30px; top: 5px; }
+  #footer .soc-item { margin: 1rem 0.3rem; }
+}
+
+/* ================================================================= 330px */
+@media only screen and (max-width: 330px) {
+  #footer .soc-item a { width: 2.2rem; height: 2.2rem; }
+}
+
+/* ==================================================== reduced motion guard */
+/* The original had none. The parallax is switched off in JS; the intro wipe,
+   the rule sweep and the mobile menu stagger are switched off here. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *:before,
+  *:after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  #contact-section .contact-input { animation: none !important; }
+  #intro-section .heading:after { animation: none; }
+  #intro-section .heading .name:before { animation: none; transform: scaleX(1); }
+  #intro-section .subtext { animation: none; opacity: 1; }
+  .overlay.open .menu-item { animation: none; opacity: 1; }
+  .bg { background-position: center center !important; }
+}
