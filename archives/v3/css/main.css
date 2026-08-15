@@ -536,17 +536,31 @@ body.night .intro__contact .highlight-link:focus-visible {
    up here for the relocation line. `position: relative` on the light is a fix,
    not a port: the ring and the LED are absolutely positioned with no positioned
    ancestor in the original, so they would have flown to the page corner. */
+/* The whole row is the link. `align-items: center` centred the light against
+   the WHOLE block, so once the sentence wrapped to two or three lines on a
+   phone the dot floated in the middle with text beside and above it. Aligned
+   to the top and nudged onto the first line's optical centre instead. */
 .status {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   font-size: 1.1rem;
   margin-top: 70px;
+}
+
+.status__cta {
+  white-space: nowrap;
+  border-bottom: 1px solid currentColor;
+}
+
+@media (max-width: 550px) {
+  .status { font-size: 1rem; }
 }
 
 .status__light {
   position: relative;
   width: 30px;
-  height: 30px;
+  /* matches the first line box so the dot sits beside line one, not the block */
+  height: 1.5em;
   flex-shrink: 0;
   display: flex;
   justify-content: center;
