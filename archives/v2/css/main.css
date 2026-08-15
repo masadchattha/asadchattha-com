@@ -1265,6 +1265,24 @@ img {
   transition: all 0.3s ease;
 }
 
+/* The arrow that marks Demo as a link out to the App Store. Drawn in CSS so
+   there is no extra request, and it inherits the button's colour on hover. */
+#portfolio-section .btn-out {
+  display: inline-block;
+  width: 0.55em;
+  height: 0.55em;
+  margin-left: 0.5em;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: translateY(-1px) rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+#portfolio-section .description-buttons a:hover .btn-out,
+#portfolio-section .description-buttons a:focus .btn-out {
+  transform: translate(2px, -3px) rotate(45deg);
+}
+
 #portfolio-section .description-buttons a:hover,
 #portfolio-section .description-buttons a:focus {
   background: var(--blue);
@@ -1710,7 +1728,25 @@ img {
   #services-section .service-column:nth-of-type(even) { border: none; }
   #services-section .service-heading { font-size: 4vw; }
 
-  #portfolio-section .screenshots { margin-left: 0; }
+  /* Four devices in one row on a phone left each one about 80px wide, which is
+     too small to read a single screen. Two per row at nearly half the width
+     doubles them and still uses the full column. The stair-step is dropped
+     here: it only reads as a set when the row is wide. */
+  #footer .soc-item { margin: 1rem 0.2rem; }
+  #footer .soc-item a { width: 2.1rem; height: 2.1rem; }
+
+  #portfolio-section .screenshots { margin-left: 0; width: 100%; }
+  #portfolio-section .screenshots.devices {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px 0;
+    padding-bottom: 0;
+  }
+  #portfolio-section .img-device {
+    flex: 0 0 calc(50% - 5px);
+    width: auto;
+    top: 0 !important;
+  }
   #portfolio-section .description-title-container { width: 100%; margin-left: 0; }
   #portfolio-section .description-buttons a {
     font-size: 14px;
@@ -1788,12 +1824,14 @@ img {
   #portfolio-section .used { margin-bottom: 50px; }
   .overlay .logo { font-size: 24px; margin: 17px 20px; }
   .overlay .logo .logo-img { width: 30px; top: 5px; }
-  #footer .soc-item { margin: 1rem 0.3rem; }
+  #footer .soc-item { margin: 1rem 0.15rem; }
+  #footer .soc-item a { width: 2rem; height: 2rem; }
 }
 
 /* ================================================================= 330px */
 @media only screen and (max-width: 330px) {
-  #footer .soc-item a { width: 2.2rem; height: 2.2rem; }
+  #footer .soc-item { margin: 1rem 0.1rem; }
+  #footer .soc-item a { width: 1.8rem; height: 1.8rem; }
 }
 
 /* ==================================================== reduced motion guard */
