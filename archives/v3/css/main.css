@@ -1,0 +1,960 @@
+/* =============================================================================
+   asadchattha.com — v3
+
+   A faithful rebuild of the v3.brittanychiang.com layout with Muhammad Asad's
+   content. The original is Jekyll + SCSS + gulp; this is plain static CSS, but
+   the partial order, the class names and the breakpoint ladder are kept so the
+   lineage stays readable:
+
+     globals · fonts · base · switch · intro · skills · experience
+     employment-status · featured-projects · other-projects · footer
+
+   Breakpoints, all max-width, exactly as in _scss/partials/_globals.scss:
+     1280 thirteen · 1024 desktop · 850 little-desktop · 768 tablet
+     630 weird-medium · 550 phablet · 480 mobile · 360 small-mobile
+     330 tiny-mobile
+
+   NOTE: there is deliberately NO heading margin reset. The original relies on
+   UA-default h1/h2/h3 margins, and the intro's `justify-content: space-around`
+   spacing is wrong without them.
+   ========================================================================== */
+
+/* ------------------------------------------------------------------ globals */
+:root {
+  --night: #171c28;
+  --black: #36363c;
+  --dark-grey: #444452;
+  --blue: #007bff;
+  --slate: #afafbf;
+  --off-white: #e7e7e7;
+  --white: #ffffff;
+  --green: #bae67e;
+  --yellow: #ffdc00;
+
+  /* Apercu is a retail licence. Hanken Grotesk is the substitute, chosen by
+     measuring rendered ink rather than by eye: against Apercu on the same
+     string, Hanken 300 is +2.2% ink / -0.7% width and Hanken 700 is +1.4% /
+     -2.1%. Work Sans, the previous pick, was +14.1% ink at 300 — that is why
+     the body read heavy and near-black and why bold looked like another
+     family. Because the match holds at the SAME weight numbers, every rule
+     below keeps her exact 300/400/500/700 values. */
+  --font-stack: 'Hanken Grotesk', system-ui, -apple-system, BlinkMacSystemFont, Roboto,
+    Helvetica, Arial, sans-serif;
+  --mono: 'Inconsolata', monospace;
+}
+
+/* --------------------------------------------------------------------- base */
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+::selection {
+  background: var(--yellow);
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--white);
+  color: var(--dark-grey);
+  font-family: var(--font-stack);
+  font-size: 16px;
+  line-height: 1.5;
+  width: 100%;
+}
+
+body.night {
+  background-color: var(--night);
+  color: var(--slate);
+}
+
+body.night ::selection {
+  color: var(--black);
+  background: var(--yellow);
+}
+
+body.night a,
+body.night strong,
+body.night .intro,
+body.night .skills .skillz__category__label,
+body.night .experience .job__time,
+body.night .footer__copyright,
+body.night .status {
+  color: var(--off-white);
+}
+
+body.night .section__content .underline-link:after {
+  background: var(--off-white);
+}
+
+a {
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  font-weight: 700;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+strong {
+  font-weight: 700;
+  color: var(--black);
+}
+
+/* Emoji-as-punctuation. The same Apple emoji PNGs the original ships in
+   img/emojis/, painted as background-images on a span exactly as it did. */
+.emoji {
+  display: inline-block;
+  vertical-align: text-top;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.section {
+  display: flex;
+  justify-content: center;
+  padding: 100px 170px;
+}
+
+.section__title {
+  flex-shrink: 0;
+  width: 200px;
+  margin: 0 70px 0 0;
+  color: var(--blue);
+  font-size: 1rem;
+  text-transform: uppercase;
+  text-align: right;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.section__content {
+  font-weight: 300;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 650px;
+}
+
+.section__content p {
+  margin-top: 0;
+  margin-bottom: 25px;
+}
+
+.section__content .underline-link {
+  position: relative;
+  display: inline-block;
+}
+
+.section__content .underline-link:after {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--black);
+  content: '';
+  opacity: 0;
+  transition: height 0.3s, opacity 0.3s, transform 0.3s;
+  transform: translateY(-5px);
+}
+
+.section__content .underline-link:hover:after,
+.section__content .underline-link:focus:after {
+  height: 2px;
+  border-radius: 3px;
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+/* The chevron is a mask rather than a background image so it can be recoloured,
+   but it is painted --blue, not currentColor: the original's arrow.png is a flat
+   #007fff arrow and stays blue in BOTH themes. Inheriting currentColor made it
+   read as body text in light and off-white in night, which is not her mark. */
+.arrow-link {
+  transition: all 0.2s ease-in-out;
+  font-weight: 700;
+  display: inline-block;
+  background-color: transparent;
+  white-space: nowrap;
+}
+
+.arrow-link:after {
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  bottom: 2px;
+  margin-left: 15px;
+  content: '';
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  background-color: var(--blue);
+  -webkit-mask: url('../img/arrow.svg') no-repeat center / 100%;
+  mask: url('../img/arrow.svg') no-repeat center / 100%;
+}
+
+.arrow-link:hover:after,
+.arrow-link:focus:after {
+  transform: translateX(7px);
+}
+
+/* Her small print style. Nothing in this page uses it yet; it is carried over so
+   the base layer stays a complete port of _base.scss. */
+.small {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  display: inline-block;
+  margin-top: 15px;
+}
+
+.small:after {
+  display: none;
+}
+
+#top-button {
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out,
+    transform 0.2s ease-in-out;
+  background: transparent;
+  border: none;
+  padding: 0;
+  width: 40px;
+  position: fixed;
+  bottom: 25px;
+  right: 10px;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 10;
+}
+
+#top-button.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+#top-button:hover,
+#top-button:focus-visible {
+  transform: translateY(-10px);
+}
+
+#top-button img {
+  width: 100%;
+}
+
+/* Scroll reveal. These two rules were already in the original's _base.scss as an
+   unused `.waypoint` / `.in-view` pair; the shipped site drove the same effect
+   through an unversioned ScrollReveal CDN script. IntersectionObserver in
+   js/main.js now adds `.in-view` with the original's own easing and offset. */
+.waypoint {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  transition: opacity 0.6s cubic-bezier(0.694, 0, 0.335, 1),
+    transform 0.6s cubic-bezier(0.694, 0, 0.335, 1);
+}
+
+.in-view {
+  opacity: 1;
+  transform: translateZ(0);
+}
+
+/* Nothing may stay invisible if the observer never runs or motion is unwanted. */
+html.no-js .waypoint {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .waypoint {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ------------------------------------------------------------------- switch */
+.switch-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  z-index: 10;
+}
+
+.switch-wrapper .sun,
+.switch-wrapper .moon {
+  width: 17px;
+  height: 17px;
+}
+
+.switch-wrapper .sun {
+  background: url('../img/switch/sun.svg') no-repeat center;
+  background-size: 100%;
+}
+
+.switch-wrapper .moon {
+  background: url('../img/switch/moon.svg') no-repeat center;
+  background-size: 100%;
+}
+
+body.night .switch-wrapper .sun {
+  background: url('../img/switch/sun-white.svg') no-repeat center;
+  background-size: 100%;
+}
+
+body.night .switch-wrapper .moon {
+  background: url('../img/switch/moon-white.svg') no-repeat center;
+  background-size: 100%;
+}
+
+.switch-wrapper .toggle-wrapper {
+  margin: 10px;
+}
+
+.switch-wrapper #switch {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+  position: absolute;
+}
+
+.switch-wrapper #switch:checked + label {
+  background: var(--green);
+}
+
+.switch-wrapper #switch:checked + label:after {
+  left: calc(100% - 3px);
+  transform: translateX(-100%);
+}
+
+/* The input is visually hidden, so the focus ring has to be drawn on the rail. */
+.switch-wrapper #switch:focus-visible + label {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+.switch-wrapper label {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 45px;
+  height: 25px;
+  background: grey;
+  display: block;
+  border-radius: 100px;
+  position: relative;
+}
+
+.switch-wrapper label:after {
+  transition: all 0.2s ease-in-out;
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 19px;
+  height: 19px;
+  background: #fff;
+  border-radius: 100%;
+}
+
+/* -------------------------------------------------------------------- intro */
+/* min-height, not height. The original's `height: 100vh` clips its own content
+   on a short viewport, and three lines of tagline copy make that worse. */
+.intro {
+  padding: 120px 100px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.intro__hello,
+.intro__tagline {
+  font-size: 2.5rem;
+  font-weight: 300;
+}
+
+.intro__hello .emoji,
+.intro__tagline .emoji {
+  width: 40px;
+  height: 40px;
+}
+
+.intro__hello .wave-hand {
+  background-image: url('../img/emojis/wave.png');
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.intro__hello .wave-hand.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.intro__hello .wave-hand.wave {
+  animation-name: wave;
+}
+
+@keyframes wave {
+  from { transform: none; }
+  15%  { transform: translate3d(-20%, 0, 0) rotate3d(0, 0, 1, -10deg); }
+  30%  { transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 7deg); }
+  45%  { transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -10deg); }
+  60%  { transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 5deg); }
+  75%  { transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -2deg); }
+  to   { transform: none; }
+}
+
+.intro__tagline {
+  max-width: 700px;
+}
+
+.intro__tagline .name {
+  font-weight: 700;
+}
+
+.intro__tagline .technologist {
+  background-image: url('../img/emojis/technologist-man.png');
+}
+
+.intro__contact {
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+.intro__contact .emoji.pointer {
+  background-image: url('../img/emojis/pointright.png');
+  width: 30px;
+  height: 30px;
+  margin: 0 5px;
+  vertical-align: text-bottom;
+}
+
+/* The signature interaction: a highlighter wiping up over the address, not a
+   text-decoration. :focus is added here — the original has no keyboard state at
+   all, so the one interactive element in the hero was invisible to a tab user. */
+.intro__contact .highlight-link {
+  transition: all 0.2s ease-in-out;
+  font-weight: 400;
+  text-decoration: none;
+  display: inline-block;
+  padding: 2px 3px;
+  box-shadow: inset 0 -3px 0 var(--blue);
+}
+
+.intro__contact .highlight-link:hover,
+.intro__contact .highlight-link:focus-visible {
+  box-shadow: inset 0 -33px 0 0 var(--blue);
+  color: var(--white);
+  outline: none;
+}
+
+body.night .intro__contact .highlight-link:hover,
+body.night .intro__contact .highlight-link:focus-visible {
+  color: var(--white);
+}
+
+/* ------------------------------------------------------------------- skills */
+.skills .skillz {
+  display: flex;
+  justify-content: space-between;
+}
+
+.skills .skillz__category__label {
+  font-weight: 700;
+  color: var(--black);
+  text-transform: uppercase;
+  font-size: 1rem;
+  /* Her label is a <div>; this is an <h3>, so the UA heading margin has to be
+     taken back off to land in the same place. */
+  margin: 0;
+}
+
+.skills .skillz__category__item {
+  margin: 3px 0;
+  font-size: 0.9rem;
+  /* DeviceActivityMonitor is one 21-character word and the columns go to 47%
+     below 630px. Without this it walks straight over the next column. */
+  overflow-wrap: break-word;
+}
+
+/* --------------------------------------------------------------- experience */
+.experience .jobs {
+  margin-bottom: 100px;
+}
+
+.experience .job {
+  margin-bottom: 25px;
+}
+
+.experience .job .time-place {
+  display: flex;
+  justify-content: space-between;
+}
+
+.experience .job__company {
+  font-weight: 700;
+}
+
+.experience .job__time {
+  font-size: 0.9rem;
+  font-family: var(--mono);
+}
+
+.experience .arrow-link {
+  font-size: 1.25rem;
+}
+
+.experience .arrow-link:after {
+  width: 20px;
+  height: 20px;
+}
+
+/* -------------------------------------------------------- employment status */
+/* Present but commented out in the original (_includes/background.html). Wired
+   up here for the relocation line. `position: relative` on the light is a fix,
+   not a port: the ring and the LED are absolutely positioned with no positioned
+   ancestor in the original, so they would have flown to the page corner. */
+.status {
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  margin-top: 70px;
+}
+
+.status__light {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.status__light__ring {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  animation: pulsate 2s ease-out;
+  animation-iteration-count: infinite;
+  opacity: 0;
+  border: 3px solid var(--green);
+  border-radius: 30px;
+}
+
+@keyframes pulsate {
+  0%   { transform: scale(0.1, 0.1); opacity: 0; }
+  50%  { opacity: 1; }
+  100% { transform: scale(1.2, 1.2); opacity: 0; }
+}
+
+.status__light__led {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  background: var(--green);
+  border-radius: 100%;
+}
+
+.status__message {
+  margin-left: 15px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status__light__ring {
+    animation: none;
+    opacity: 0.6;
+  }
+}
+
+/* -------------------------------------------------- featured projects */
+.featured-projects a:after {
+  display: none;
+}
+
+.featured-projects .project {
+  display: flex;
+  margin-bottom: 100px;
+  margin-left: -5%;
+  width: 125%;
+}
+
+.featured-projects .project:last-of-type {
+  margin-bottom: 0;
+}
+
+.featured-projects .project__pic {
+  max-width: 700px;
+  overflow: visible;
+  margin: 0;
+}
+
+.featured-projects .project__pic a {
+  display: block;
+}
+
+/* Three devices pulled into one row. The negative margins overlap the CANVASES,
+   not the devices: each plate carries ~19% transparent padding per side (see
+   tools/build_devices.py), which is more clear space than the overlap consumes. */
+.featured-projects .project__pic.phones a {
+  display: flex;
+  justify-content: space-between;
+}
+
+.featured-projects .project__pic.phones .phone {
+  margin: 0 -7%;
+}
+
+.featured-projects .project__pic.phones .phone:first-of-type {
+  margin-left: -5%;
+}
+
+.featured-projects .project__pic img {
+  width: 100%;
+  max-width: 100%;
+  /* The intrinsic width/height attributes are there to reserve space and stop
+     the row jumping as the WebP loads. They also land as presentational
+     height:900px, which would stretch every device once width goes fluid, so
+     the height has to be handed back to the aspect ratio. */
+  height: auto;
+  vertical-align: bottom;
+}
+
+.featured-projects .project__caption {
+  width: 125px;
+  flex-shrink: 0;
+  margin-left: 30px;
+}
+
+.featured-projects .project__name {
+  margin-bottom: 10px;
+}
+
+.featured-projects .project__name a {
+  font-weight: 700;
+}
+
+.featured-projects .project p {
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+/* ------------------------------------------------------------ other projects */
+.other-projects .project {
+  max-width: 600px;
+  margin-bottom: 50px;
+}
+
+.other-projects .project:last-of-type {
+  margin-bottom: 0;
+}
+
+.other-projects .project__name {
+  margin-bottom: 10px;
+}
+
+.other-projects .project p {
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.other-projects .project__used__item {
+  display: inline-block;
+  margin: 3px 3px 3px 0;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 3px;
+  color: var(--blue);
+  border: 1px solid var(--blue);
+  background: transparent;
+}
+
+.other-projects .project__used__item:first-of-type {
+  margin-left: 0;
+}
+
+/* ------------------------------------------------------------------- footer */
+.footer {
+  padding: 50px 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer__copyright {
+  font-weight: 700;
+  font-size: 16px;
+  /* Hers is 200px, which is exactly wide enough for "Brittany Chiang 🤘 2018".
+     "Muhammad Asad 🤘 2026" is a few px longer and broke onto a third line, so
+     the box is widened rather than the line rewritten. */
+  width: 215px;
+}
+
+.footer__copyright .emoji {
+  width: 20px;
+  height: 20px;
+  margin: 0 3px;
+  vertical-align: text-bottom;
+}
+
+.footer__links a {
+  position: relative;
+  display: inline-block;
+  color: var(--blue) !important;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0 15px;
+}
+
+.footer__links a:after {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--blue);
+  content: '';
+  opacity: 0;
+  transition: height 0.3s, opacity 0.3s, transform 0.3s;
+  transform: translateY(-5px);
+}
+
+.footer__links a:hover:after,
+.footer__links a:focus:after {
+  height: 2px;
+  border-radius: 3px;
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.footer__links .text {
+  font-size: 0.9rem;
+  display: inline;
+  letter-spacing: 1px;
+}
+
+.footer__links img {
+  display: none;
+  width: 22px;
+}
+
+/* ============================== breakpoints ============================== */
+
+/* 1280 — thirteen */
+@media screen and (max-width: 1280px) {
+  .section {
+    padding: 100px;
+  }
+  .featured-projects .project {
+    width: 115%;
+  }
+}
+
+/* 1024 — desktop */
+@media screen and (max-width: 1024px) {
+  .section {
+    padding: 50px;
+  }
+  .section__title {
+    margin-right: 50px;
+  }
+  .intro__hello,
+  .intro__tagline {
+    font-size: 2.25rem;
+  }
+  .intro__hello .emoji,
+  .intro__tagline .emoji {
+    width: 35px;
+    height: 35px;
+  }
+  .featured-projects .project {
+    width: 105%;
+  }
+  .footer {
+    padding: 50px;
+  }
+  .footer__links a {
+    margin: 0 10px;
+  }
+  #top-button {
+    bottom: 20px;
+    right: 7px;
+    width: 35px;
+  }
+}
+
+/* 850 — little-desktop. The footer trades text labels for marks here. */
+@media screen and (max-width: 850px) {
+  .section__title {
+    width: 150px;
+  }
+  .footer__links a:after {
+    display: none;
+  }
+  .footer__links .text {
+    display: none;
+  }
+  .footer__links img {
+    display: inline-block;
+  }
+}
+
+/* 768 — tablet. The two-column section becomes a stack. */
+@media screen and (max-width: 768px) {
+  .section {
+    display: block;
+  }
+  .section__title {
+    text-align: left;
+    width: auto;
+    margin-right: 0;
+  }
+  .section__content {
+    padding-top: 30px;
+    padding-left: 50px;
+  }
+  .intro__hello,
+  .intro__tagline {
+    font-size: 2rem;
+  }
+  .intro__hello .emoji,
+  .intro__tagline .emoji {
+    width: 30px;
+    height: 30px;
+  }
+  .featured-projects .project {
+    width: 100%;
+    display: block;
+    margin-bottom: 70px;
+  }
+  .featured-projects .project__caption {
+    width: 100%;
+    margin-top: 25px;
+    margin-left: 0;
+  }
+}
+
+/* 630 — weird-medium */
+@media screen and (max-width: 630px) {
+  .intro {
+    padding: 120px 70px;
+  }
+  .skills .skillz {
+    flex-wrap: wrap;
+  }
+  .skills .skillz__category {
+    width: 47%;
+    min-width: 0;
+    margin-right: 5px;
+    margin-bottom: 25px;
+  }
+  .footer {
+    display: block;
+  }
+  .footer__copyright {
+    width: auto;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  .footer__copyright .top,
+  .footer__copyright .bottom {
+    display: inline-block;
+  }
+  .footer__links {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* 550 — phablet */
+@media screen and (max-width: 550px) {
+  .intro {
+    padding: 120px 50px;
+  }
+  .intro__hello,
+  .intro__tagline {
+    font-size: 1.75rem;
+  }
+  .intro__contact {
+    font-size: 1rem;
+  }
+  .intro__contact .emoji.pointer {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+/* 480 — mobile */
+@media screen and (max-width: 480px) {
+  .section {
+    padding: 50px 35px;
+  }
+  .section__content {
+    padding-left: 30px;
+  }
+  .intro {
+    padding: 70px 50px;
+  }
+  .experience .job .time-place {
+    display: block;
+  }
+  .experience .job__time {
+    font-size: 0.8rem;
+  }
+  .footer {
+    padding: 50px 30px;
+  }
+  .footer__copyright .top,
+  .footer__copyright .bottom {
+    display: block;
+  }
+  #top-button {
+    bottom: 15px;
+    right: 3px;
+  }
+}
+
+/* 360 — small-mobile */
+@media screen and (max-width: 360px) {
+  .intro__hello,
+  .intro__tagline {
+    font-size: 1.5rem;
+  }
+  .intro__hello .emoji,
+  .intro__tagline .emoji {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+/* 330 — tiny-mobile */
+@media screen and (max-width: 330px) {
+  .intro__hello,
+  .intro__tagline {
+    font-size: 1.4rem;
+  }
+}
