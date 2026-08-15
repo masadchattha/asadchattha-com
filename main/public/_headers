@@ -1,3 +1,10 @@
+/*
+  # Once seen, browsers refuse plain http on this host for a year, so a stale
+  # tab can never fall back and show "Not Secure" again.
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
 /resume.pdf
   Content-Disposition: inline; filename="Muhammad_Asad_Senior_iOS_Engineer_CV.pdf"
   Cache-Control: public, max-age=3600
