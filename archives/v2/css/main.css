@@ -870,16 +870,23 @@ img {
 
 #skills-section .dev-wrapper { display: block; }
 
+/* The original centred the label with `line-height: 7`, which only works while
+   the text is exactly one line. "Objective-C" wraps in a 100px circle, and the
+   second line was pushed a full 98px down — the "C" landed outside the circle
+   entirely. Flex centring holds whatever the label does, and the padding keeps
+   a wrapped label off the border. */
 #skills-section .dev-item {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: 2px solid rgba(57, 57, 57, 0.5);
   border-radius: 50%;
   text-align: center;
   margin: 10px 10px 10px 0;
-  padding: 0;
+  padding: 0 8px;
   width: 100px;
   height: 100px;
-  line-height: 7;
+  line-height: 1.25;
   font-size: 14px;
 }
 
@@ -1586,8 +1593,7 @@ img {
   #skills-section .dev-item {
     width: 80px;
     height: 80px;
-    font-size: 14px;
-    line-height: 5.5;
+    font-size: 13px;
     margin: 5px 5px 5px 0;
   }
   #skills-section .flex-item:nth-child(1) { width: 37%; }
@@ -1700,7 +1706,6 @@ img {
   #skills-section .dev-item {
     width: 100px;
     height: 100px;
-    line-height: 7;
     margin: 1%;
   }
 
@@ -1782,7 +1787,7 @@ img {
   .section .section-wrapper p { font-size: 1em; }
   #services-section .service-column { padding: 20px 0; }
   #skills-section .flex-item { padding: 0; }
-  #skills-section .dev-item { width: 80px; height: 80px; line-height: 5.5; }
+  #skills-section .dev-item { width: 80px; height: 80px; font-size: 12px; }
   #services-section .bg { background-image: url('../img/services-xs.jpg'); }
   #experience-section .bg { background-image: url('../img/experience-xs.jpg'); }
   #contact-section .bg { background-image: url('../img/contact-xs.jpg'); }
