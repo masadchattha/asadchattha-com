@@ -1,15 +1,17 @@
 ---
 import astrolabeSvg from '../assets/icons/astrolabe.svg?raw';
 
-// Every archived version ships from THIS project, at /v1, /v2 and /v3 — see
-// netlify.toml. Paths, not subdomains: the subdomains only answer once the DNS
-// records exist, and a tile that leads nowhere is worse than no tile.
+// Every archived version ships from THIS project — see netlify.toml, which
+// rewrites each vN subdomain onto the matching folder with a 200, so the
+// address bar keeps the subdomain while the files come from /vN.
+// The DNS CNAMEs are in place, so the tiles use the subdomain: it reads as a
+// separate site from an earlier era, which is the point of the archive.
 // THIS site is the newest version, not v1 — `here: true` marks it.
 // `shot` is the tile screenshot; versions without one render "Coming soon".
 const versions = [
-  { v: 'v1', href: '/v1/', shot: '/images/v1.png', label: 'asadchattha.com version 1 (opens in a new tab)' },
-  { v: 'v2', href: '/v2/', shot: '/images/v2.png', label: 'asadchattha.com version 2 (opens in a new tab)' },
-  { v: 'v3', href: '/v3/', shot: '/images/v3.png', label: 'asadchattha.com version 3 (opens in a new tab)' },
+  { v: 'v1', href: 'https://v1.asadchattha.com', shot: '/images/v1.png', label: 'asadchattha.com version 1 (opens in a new tab)' },
+  { v: 'v2', href: 'https://v2.asadchattha.com', shot: '/images/v2.png', label: 'asadchattha.com version 2 (opens in a new tab)' },
+  { v: 'v3', href: 'https://v3.asadchattha.com', shot: '/images/v3.png', label: 'asadchattha.com version 3 (opens in a new tab)' },
   { v: 'v4', href: '/', shot: '/images/v4.png', here: true, label: 'asadchattha.com version 4 — you are here' },
 ];
 ---
