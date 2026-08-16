@@ -7,6 +7,13 @@
   base = "main"
   command = "npm run build"
   publish = "dist"
+  # Because `base` is main/, Netlify decides whether to build by looking for
+  # changes inside main/ only — and every archived version lives in archives/,
+  # which is copied in at build time. Two commits that touched archives/ alone
+  # were silently cancelled with "no content change" and never went live.
+  # A non-zero exit means "do not skip", so this always builds. The build is
+  # about a second; the cost of skipping a real fix is far higher.
+  ignore = "exit 1"
 
 [build.environment]
   NODE_VERSION = "20"
