@@ -128,6 +128,14 @@ img {
   margin-right: auto;
 }
 
+/* The spam honeypot. It MUST be display:none, not visually-hidden.
+   `visually-hidden` clips the box but leaves a real, focusable text field, and
+   a phone browser autofills it like any other input — at which point Netlify
+   silently discards the submission as bot traffic and still answers 200, so the
+   page says "message sent" while the message goes nowhere. Verified: a POST
+   with bot-field filled is dropped, the same POST without it is captured. */
+.hp { display: none; }
+
 .visually-hidden {
   position: absolute;
   width: 1px;
