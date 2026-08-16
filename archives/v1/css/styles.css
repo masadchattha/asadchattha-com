@@ -1932,6 +1932,32 @@ img#elentra-logo   { width: 165px; margin-bottom: 0; }
     .skills-section .skill-name {
         opacity: 1;
     }
+
+    /* `background-attachment: fixed` sizes the photo to the VIEWPORT and pins
+       it, so on a phone `cover` blew the 1920px plate up until only a patch of
+       sky was in frame — the hero read as a near-black rectangle with the peak
+       cut off at the bottom. Scrolling the background lets `cover` fit the
+       element instead, which is what v2 does and why its hero looks right.
+       The top of the gradient is eased off too, since the photo no longer
+       needs to fight an 0.8 black wash to keep the title readable. */
+    #intro,
+    #intro .overlay,
+    #resume,
+    #resume .overlay {
+        background-attachment: scroll;
+    }
+
+    #intro .overlay,
+    #resume .overlay {
+        background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.62) 0%,
+            rgba(0, 0, 0, 0.55) 35%,
+            rgba(0, 0, 0, 0.45) 70%,
+            rgba(0, 0, 0, 0.35) 100%);
+    }
+
+    /* Bias the crop upward so the summit stays in frame on a tall screen. */
+    #intro { background-position: center 30%; }
 }
 
 /* Instagram's actual brand gradient rather than the flat 2016 blue */
