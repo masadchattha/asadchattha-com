@@ -552,6 +552,25 @@ body.night .intro__contact .highlight-link:focus-visible {
   border-bottom: 1px solid currentColor;
 }
 
+/* A link that leaves the site should say so. The same arrow the Demo buttons
+   use in v2, drawn in CSS so there is no extra request and it inherits colour.
+   Featured project names get it too, since those open the App Store listing. */
+.ext-out {
+  display: inline-block;
+  width: 0.45em;
+  height: 0.45em;
+  margin-left: 0.45em;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: translateY(-1px) rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+a:hover .ext-out,
+a:focus .ext-out { transform: translate(2px, -3px) rotate(45deg); }
+
+.featured-projects .project__name a .ext-out { border-width: 2px; }
+
 @media (max-width: 550px) {
   .status { font-size: 1rem; }
 }
