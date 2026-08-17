@@ -1,0 +1,112 @@
+---
+import Capability from '../layouts/Capability.astro';
+
+// Every technical claim here is something a CTO can test in the first call, so
+// nothing goes on this page that cannot be defended. The apps named are the
+// ones publicly listed with the entitlement.
+const sections = [
+  {
+    heading: 'What the Screen Time API actually is',
+    body: [
+      `Apple exposes app blocking through three frameworks that only work together.
+       <strong class="text-slate-300">FamilyControls</strong> gets permission and hands you opaque tokens
+       instead of bundle IDs. <strong class="text-slate-300">ManagedSettings</strong> applies the shield.
+       <strong class="text-slate-300">DeviceActivity</strong> runs the schedules and thresholds that decide when.`,
+      `The tokens are the part people trip over. You never learn which app the user picked.
+       You cannot read the name, you cannot read the icon, you cannot log it to your backend.
+       That is deliberate, and it means the usual analytics and debugging habits do not apply.
+       Anything you want to know about a blocked app has to be derived on the device.`,
+    ],
+  },
+  {
+    heading: 'The parts that are genuinely hard',
+    body: [
+      `<strong class="text-slate-300">Getting the entitlement.</strong> Family Controls is a restricted
+       entitlement. You submit a request explaining the use case and Apple reviews it by hand.
+       Vague answers get refused. I have been through this approval six times, and the request
+       that gets approved reads like a product spec, not a form.`,
+      `<strong class="text-slate-300">The extension sandbox.</strong> DeviceActivityMonitor and
+       ShieldConfiguration run in separate extensions with tight memory limits and no debugger
+       worth the name. They wake, do a small amount of work, and die. Shared state goes through
+       an App Group, and anything expensive gets you terminated mid-callback.`,
+      `<strong class="text-slate-300">Shields that fire late, or not at all.</strong> Most bug reports
+       here trace back to threshold events being coalesced, a monitor never restarting after
+       reboot, or a schedule crossing midnight in the wrong time zone. Understanding the
+       difference is the whole job.`,
+      `<strong class="text-slate-300">Review.</strong> Screen Time apps get scrutinised harder than
+       average, particularly around 5.1.1 and anything that reads as surveillance. Writing the
+       submission so the reviewer understands the intent up front saves weeks.`,
+    ],
+  },
+  {
+    heading: 'Beyond the standard block screen',
+    body: [
+      `ShieldConfiguration lets you replace Apple's grey shield with your own, and that is where
+       most of the product lives. I have built a shield that shows a snail whose health improves
+       the less you scroll, a lockdown armed by physically tapping an NFC tag, and a shield tied
+       to daylight exposure so a screen limit lifts once you have actually been outside.`,
+      `The mechanics are the easy half. The hard half is making a limit feel like something the
+       user chose rather than a punishment, because the ones that feel punitive get uninstalled
+       in a week.`,
+    ],
+  },
+];
+
+const apps = [
+  {
+    name: 'Shelly',
+    what: 'Gamified screen time. Apple approved the Family Controls entitlement by hand; shields are drawn with ShieldConfiguration and usage thresholds fire through DeviceActivityMonitor.',
+    url: 'https://apps.apple.com/us/app/shelly-screen-time-control/id6757734582',
+  },
+  {
+    name: 'Block',
+    what: 'Tap the phone on a physical NFC tag and the distracting apps disappear. Tap again to bring them back. Core NFC starts the session, Family Controls enforces it.',
+    url: 'https://apps.apple.com/app/id6752846663',
+  },
+  {
+    name: 'Bright Start',
+    what: 'A circadian reset where the screen limit lifts only after the camera and light sensor confirm real daylight exposure.',
+    url: 'https://apps.apple.com/app/id6745139907',
+  },
+  {
+    name: 'Chapter',
+    what: 'Habit replacement. Rather than only blocking, it substitutes the blocked moment with something else and tracks the streak.',
+    url: 'https://apps.apple.com/us/app/chapter-replace-a-bad-habit/id6757711400',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Can you get the Family Controls entitlement approved for my app?',
+    a: 'I can write and submit the request, and I have had it approved six times. Approval is Apple\'s decision, not mine, so nobody can promise it. What I can say is that refusals almost always come from a vague use case, and the fix is describing exactly what the app does, who it is for, and what data never leaves the device.',
+  },
+  {
+    q: 'Can the app see which apps a user blocked?',
+    a: 'No. FamilyControls returns opaque tokens, not bundle identifiers. You cannot read the name or icon of a selected app, and you cannot send that selection to a server. Any product idea that depends on knowing which specific apps a user picked needs rethinking before development starts.',
+  },
+  {
+    q: 'Does this work on Android too?',
+    a: 'Not with these frameworks. Screen Time is Apple-only. Android has its own APIs with different rules and a different permission model. If you need both, they are two builds, and pretending otherwise is how timelines slip.',
+  },
+  {
+    q: 'Why does my shield sometimes appear late?',
+    a: 'Usually the DeviceActivityMonitor extension was terminated or the threshold event was coalesced by the system. Occasionally it is a schedule crossing midnight in a time zone you did not test. It is nearly always diagnosable, but it needs on-device testing rather than the simulator.',
+  },
+  {
+    q: 'Can you fix an existing Screen Time app rather than build a new one?',
+    a: 'Yes, and that is most of the work people bring me. Shields not firing, monitors dying after reboot, an entitlement request that keeps getting refused, or a rejection at review. A fixed-scope diagnosis first is usually cheaper for you than an open-ended engagement.',
+  },
+];
+---
+
+<Capability
+  title="iOS Screen Time & Family Controls Developer — Muhammad Asad"
+  description="Freelance iOS engineer specialising in the Screen Time API: Family Controls, ManagedSettings, DeviceActivityMonitor and ShieldConfiguration. Six approved entitlements and four shipped App Store apps."
+  path="/screen-time-ios-developer/"
+  crumb="Screen Time & Family Controls"
+  h1="iOS Screen Time & Family Controls Developer"
+  lede="I build app-blocking and digital wellbeing apps on Apple's Screen Time API. Six Family Controls entitlements approved by Apple, and shipped apps using ManagedSettings, DeviceActivityMonitor and custom shields."
+  sections={sections}
+  apps={apps}
+  faqs={faqs}
+/>

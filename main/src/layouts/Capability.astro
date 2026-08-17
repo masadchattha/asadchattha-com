@@ -1,0 +1,119 @@
+---
+// Shared shell for the capability pages — the ones a hiring manager reaches by
+// searching for an API rather than for a name.
+//
+// These are ordinary, fully visible pages. Serving crawlers something a visitor
+// cannot see is cloaking, which risks the whole domain. The page ranks BECAUSE
+// a human can read it and get an answer.
+//
+// Emits FAQPage schema (answers can surface directly in results) and
+// BreadcrumbList (the result shows a readable trail instead of a raw URL).
+import Layout from './Layout.astro';
+
+interface Faq { q: string; a: string }
+interface App { name: string; what: string; url?: string }
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  h1: string;
+  lede: string;
+  crumb: string;
+  sections: { heading: string; body: string[] }[];
+  apps: App[];
+  faqs: Faq[];
+}
+
+const { title, description, path, h1, lede, crumb, sections, apps, faqs } = Astro.props;
+
+const schema = JSON.stringify([
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Muhammad Asad', item: 'https://asadchattha.com/' },
+      { '@type': 'ListItem', position: 2, name: crumb, item: `https://asadchattha.com${path}` },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+]);
+---
+
+<Layout title={title} description={description} path={path} schema={schema}>
+  <div class="mx-auto min-h-screen max-w-3xl px-6 py-12 font-sans md:px-12 md:py-20">
+    <main id="content">
+      <a class="group mb-6 inline-flex items-center text-sm font-semibold leading-tight text-teal-300" href="/">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="mr-1 h-4 w-4 rotate-180 transition-transform group-hover:-translate-x-2" aria-hidden="true"><path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd"></path></svg>
+        Muhammad Asad
+      </a>
+
+      <h1 class="text-3xl font-bold tracking-tight text-slate-200 sm:text-4xl">{h1}</h1>
+      <p class="mt-5 text-lg leading-relaxed text-slate-400">{lede}</p>
+
+      {sections.map((s) => (
+        <section class="mt-14">
+          <h2 class="text-xl font-semibold tracking-tight text-slate-200">{s.heading}</h2>
+          {s.body.map((p) => (
+            <p class="mt-4 leading-relaxed text-slate-400" set:html={p} />
+          ))}
+        </section>
+      ))}
+
+      <section class="mt-14">
+        <h2 class="text-xl font-semibold tracking-tight text-slate-200">Shipped, not theoretical</h2>
+        <ul class="mt-6 divide-y divide-slate-800 border-y border-slate-800">
+          {apps.map((a) => (
+            <li class="py-4">
+              <div class="flex items-baseline gap-3">
+                {a.url ? (
+                  <a class="font-semibold text-slate-200 hover:text-teal-300" href={a.url} target="_blank" rel="noreferrer noopener">{a.name}</a>
+                ) : (
+                  <span class="font-semibold text-slate-200">{a.name}</span>
+                )}
+              </div>
+              <p class="mt-1 text-sm leading-relaxed text-slate-400">{a.what}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="mt-14">
+        <h2 class="text-xl font-semibold tracking-tight text-slate-200">Questions people actually ask</h2>
+        <dl class="mt-6 space-y-7">
+          {faqs.map((f) => (
+            <div>
+              <dt class="font-semibold text-slate-200">{f.q}</dt>
+              <dd class="mt-2 leading-relaxed text-slate-400">{f.a}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <section class="mt-16 rounded-md border border-slate-800 p-6">
+        <h2 class="text-xl font-semibold tracking-tight text-slate-200">Working on something like this?</h2>
+        <p class="mt-3 leading-relaxed text-slate-400">
+          Tell me what you are building and where it is stuck. If it is not something
+          I can help with, I will say so.
+        </p>
+        <p class="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+          <a class="font-semibold text-teal-300 underline underline-offset-4 hover:text-teal-200" href="mailto:m.asad.chatthaa@gmail.com">m.asad.chatthaa@gmail.com</a>
+          <a class="font-semibold text-teal-300 underline underline-offset-4 hover:text-teal-200" href="https://calendly.com/m-asad-dev/ios-apps-consultation" target="_blank" rel="noreferrer noopener">Book a call</a>
+        </p>
+      </section>
+
+      <p class="mt-12 text-sm text-slate-500">
+        More context: <a class="text-teal-300 underline underline-offset-4 hover:text-teal-200" href="/">the full portfolio</a>
+        and <a class="text-teal-300 underline underline-offset-4 hover:text-teal-200" href="/archive/">every project I have shipped</a>.
+      </p>
+    </main>
+  </div>
+</Layout>
