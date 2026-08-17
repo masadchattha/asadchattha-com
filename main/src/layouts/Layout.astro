@@ -4,12 +4,25 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  /** Path only, with the trailing slash the site actually serves (e.g. '/archive/'). */
+  path?: string;
+  noindex?: boolean;
+  schema?: string;
 }
 
 const {
   title = 'Muhammad Asad — Senior iOS Engineer',
   description = 'Senior iOS Engineer with 16 apps on the App Store. Swift, SwiftUI, Screen Time API, HealthKit, StoreKit 2, on-device machine learning, AR, and blockchain dApps. MVP specialist for startups and product teams.',
+  path = '/',
+  noindex = false,
+  schema,
 } = Astro.props;
+
+// One canonical form for the whole site: absolute, https, trailing slash. The
+// server 301s /archive to /archive/, so anything pointing at the slashless form
+// costs a redirect hop and muddies which URL search engines should credit.
+const SITE = 'https://asadchattha.com';
+const canonical = SITE + path;
 
 const personSchema = JSON.stringify({
   '@context': 'https://schema.org',
@@ -51,11 +64,15 @@ const personSchema = JSON.stringify({
     <meta name="description" content={description} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://asadchattha.com" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Muhammad Asad" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:image" content="https://asadchattha.com/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -66,6 +83,7 @@ const personSchema = JSON.stringify({
     <title>{title}</title>
 
     <script type="application/ld+json" set:html={personSchema} />
+    {schema && <script type="application/ld+json" set:html={schema} />}
   </head>
   <body class="bg-slate-900 leading-relaxed text-slate-400 antialiased selection:bg-teal-300 selection:text-teal-900">
     <a href="#content" class="skip-link">Skip to content</a>
