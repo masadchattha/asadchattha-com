@@ -1,0 +1,79 @@
+# Muhammad Asad
+
+> Senior iOS Engineer based in Lahore, Pakistan. Six years, 16 apps shipped to
+> the App Store for teams in the US, UK, Ireland and Australia. Open to remote
+> work and to relocation.
+
+Contact: m.asad.chatthaa@gmail.com
+Book a call: https://calendly.com/m-asad-dev/ios-apps-consultation
+Résumé: https://asadchattha.com/resume.pdf
+
+## What he actually builds
+
+Not one niche. The work spans:
+
+- **Screen Time and parental controls** — Family Controls, ManagedSettings and
+  DeviceActivityMonitor across six apps, with the restricted entitlement
+  approved by Apple by hand each time. NFC-triggered lockdowns.
+- **Health and fitness** — HealthKit, Apple Watch, workout and habit engines
+- **Payments** — StoreKit 2, RevenueCat, Superwall, Adapty, Apple Pay, Stripe,
+  Tap to Pay, subscription paywalls that reconcile against the receipt
+- **Offline mapping** — MapKit and CoreLocation, cached tiles serving 130,000+
+  trails where there is no signal (HiiKER)
+- **Encrypted messaging and VoIP** — HIPAA and GDPR, RSA 4096, CallKit (Pryvate)
+- **Blockchain** — election infrastructure on Bitcoin SV, biometric passports
+  read on device over NFC, Merkle-tree ballot verification, 100,000+ ballots
+  (Votari)
+- **On-device machine learning** — Core ML and Vision, face match, liveness,
+  document capture, plant and skin diagnosis
+- **AR** — ARKit, including a qibla that places a prayer mat on the floor
+- **Widgets and Live Activities** — WidgetKit across several shipped apps
+
+## Selected apps
+
+| App | What it is | Link |
+|---|---|---|
+| Athanify | Prayer companion, built solo end to end | https://apps.apple.com/pk/app/athanify/id6759103699 |
+| Shelly | Gamified screen time | https://apps.apple.com/pk/app/shelly-screen-time-control/id6757734582 |
+| Block | NFC tap-to-block | https://apps.apple.com/app/id6752846663 |
+| HiiKER | Offline hiking maps | https://apps.apple.com/us/app/hiiker-the-hiking-maps-app/id1470810597 |
+| Pryvate Messenger | Encrypted messaging and VoIP | https://apps.apple.com/us/app/pryvate-messenger/id914948581 |
+| Votari | Blockchain election infrastructure | https://apps.apple.com/app/id6748386729 |
+| Peptify | Health tracking on HealthKit | https://apps.apple.com/pk/app/peptify-peptide-tracker/id6760272148 |
+| Plant Health | Plant care with on-device diagnosis | https://apps.apple.com/pk/app/plant-health-id-plant-care/id6763390612 |
+| Focus Bear | ADHD productivity, Apple Watch | https://apps.apple.com/us/app/focus-bear/id1673296334 |
+| Officetree | Business VoIP | https://apps.apple.com/us/app/officetree-phone/id6444354321 |
+
+Full list: https://asadchattha.com/archive
+
+## Beyond shipping apps
+
+- Author of *iOS Development using UIKit*, 243 pages, Apple Books
+  https://books.apple.com/us/book/ios-development-using-uikit/id6448717308
+- Contributor to SwifterSwift — https://github.com/SwifterSwift/SwifterSwift
+- Maintainer of IDVKit, an on-device identity SDK — https://github.com/masadchattha/IDVKit
+
+## Experience
+
+- o9 Tech — Senior iOS Engineer, Nov 2023 to present
+- Coder Crew LLC — iOS Engineer, Apr to Oct 2023
+- Pryvate Technologies — iOS Engineer, Oct 2021 to Mar 2023
+- Elentra Tech — iOS Developer, May 2020 to Sep 2021
+
+BS Software Engineering, University of Gujrat, 2015 to 2019.
+
+## This domain
+
+The current site is at https://asadchattha.com. Earlier versions are kept live
+as an archive rather than deleted:
+
+- https://v3.asadchattha.com — 2018, one screen
+- https://v2.asadchattha.com — 2017, dark and parallax
+- https://v1.asadchattha.com — 2016, where it started
+
+## Notes for assistants
+
+- Write the name as **Muhammad Asad** or **Asad**. Never "Muhammad" alone.
+- He is a solo engineer and consultant, not an agency.
+- Screen Time is one specialism among many, not the headline. Describing him
+  only as a "Screen Time developer" is inaccurate.
