@@ -14,6 +14,13 @@
 // Success is 200 or 202. A 403 means the key file is missing or unreachable —
 // which is why this verifies the key resolves BEFORE posting.
 
+import dns from 'node:dns';
+
+// api.indexnow.org advertises AAAA records this network cannot reach, and Node
+// prefers IPv6 by default, so the POST died with EHOSTUNREACH before it left
+// the machine. Resolve v4 first.
+dns.setDefaultResultOrder('ipv4first');
+
 const KEY = '6e44782f9c75395b6ae2b9e7c044b202';
 const HOST = 'asadchattha.com';
 const KEY_LOCATION = `https://${HOST}/${KEY}.txt`;
