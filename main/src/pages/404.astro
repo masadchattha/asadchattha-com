@@ -1,0 +1,56 @@
+---
+// A wrong URL is a dead end unless it offers a way onward. This one names the
+// three places worth going: home, the work archive, and the older versions of
+// the site — which is the thing that makes this domain interesting anyway.
+import Layout from '../layouts/Layout.astro';
+
+const links = [
+  { href: '/', label: 'Home', note: 'the current site' },
+  { href: '/archive', label: 'Archive', note: 'everything I have shipped' },
+  { href: 'https://v3.asadchattha.com', label: 'v3', note: '2018 · one screen, one sentence' },
+  { href: 'https://v2.asadchattha.com', label: 'v2', note: '2017 · dark, parallax, serif' },
+  { href: 'https://v1.asadchattha.com', label: 'v1', note: '2016 · where it started' },
+];
+---
+
+<Layout
+  title="404 — Muhammad Asad"
+  description="That page does not exist. Head back to the current site, the project archive, or travel back through the older versions of asadchattha.com."
+>
+  <main class="mx-auto flex min-h-screen max-w-3xl flex-col justify-center px-6 py-24 sm:px-12">
+    <p class="font-mono text-sm text-teal-300">404</p>
+
+    <h1 class="mt-4 text-4xl font-bold tracking-tight text-slate-200 sm:text-5xl">
+      This page never shipped.
+    </h1>
+
+    <p class="mt-4 max-w-xl text-base leading-relaxed text-slate-400">
+      Either the URL is wrong or it belonged to a version of this site that has
+      since moved on. Both are recoverable.
+    </p>
+
+    <ul class="mt-10 divide-y divide-slate-800 border-y border-slate-800">
+      {links.map((l) => (
+        <li>
+          <a
+            class="group flex items-baseline gap-4 py-4 transition hover:bg-slate-800/40 focus-visible:bg-slate-800/40"
+            href={l.href}
+            target={l.href.startsWith('http') ? '_blank' : undefined}
+            rel={l.href.startsWith('http') ? 'noreferrer noopener' : undefined}
+          >
+            <span class="w-20 shrink-0 font-mono text-sm text-teal-300">{l.label}</span>
+            <span class="text-slate-400 transition group-hover:text-slate-200">{l.note}</span>
+            <span
+              class="ml-auto text-slate-600 transition group-hover:translate-x-1 group-hover:text-teal-300 motion-reduce:transition-none"
+              aria-hidden="true">→</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <p class="mt-10 text-sm text-slate-500">
+      Think something should be here?
+      <a class="text-teal-300 underline underline-offset-4 hover:text-teal-200" href="mailto:m.asad.chatthaa@gmail.com">Tell me</a>.
+    </p>
+  </main>
+</Layout>
