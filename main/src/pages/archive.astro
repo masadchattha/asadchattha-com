@@ -1,6 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
+// Breadcrumbs replace the bare URL in a search result with a readable trail.
+const breadcrumbs = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Muhammad Asad', item: 'https://asadchattha.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Archive', item: 'https://asadchattha.com/archive/' },
+  ],
+});
+
 const archive = [
   { year: '2026', project: 'Peptify', madeAt: 'Personal', builtWith: ['SwiftUI', 'HealthKit', 'Vision / OCR'], url: 'https://apps.apple.com/us/app/peptify-peptide-tracker/id6760272148', label: 'App Store' },
   { year: '2026', project: 'Plant Health', madeAt: 'Personal', builtWith: ['SwiftUI', 'RAG', 'Local LLM', 'Vision'], url: 'https://apps.apple.com/app/id6763390612', label: 'App Store' },
@@ -22,7 +32,12 @@ const archive = [
 ];
 ---
 
-<Layout title="Archive — Muhammad Asad" description="A big list of every iOS app and project Muhammad Asad has shipped.">
+<Layout
+  title="Archive — Muhammad Asad"
+  description="Every iOS app and project Muhammad Asad has shipped: 16 App Store releases across health, payments, offline maps, encryption, blockchain and on-device ML."
+  path="/archive/"
+  schema={breadcrumbs}
+>
   <div class="mx-auto min-h-screen max-w-screen-xl px-6 py-12 font-sans md:px-12 md:py-20 lg:px-24 lg:py-20">
     <main id="content">
       <a class="group mb-2 inline-flex items-center font-semibold leading-tight text-teal-300" href="/">
