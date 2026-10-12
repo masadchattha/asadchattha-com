@@ -1,7 +1,6 @@
 ---
-// Shell for every Decorna page on this site, now and later. It carries the app's own look, not the
-// portfolio's: Decorna's light and dark roles (the same values as `DecornaTheme` in the app), switched by the
-// system setting. A new Decorna page uses this layout and inherits the theme; do not restyle it per page.
+// Shell for every Decorna page: the app's own light and dark roles (as in `DecornaTheme`), switched by the system setting.
+// A new Decorna page uses this layout; do not restyle it per page.
 
 interface Props {
   title: string;
@@ -63,8 +62,7 @@ const pages = [
 </html>
 
 <style is:global>
-  /* Roles mirror DecornaTheme: background, surface, border, text*, accent, accentSoft. `link` is a lighter
-     accent in dark mode only, because the app's blue is too dim for text on a near-black page. */
+  /* `link` is a lighter accent in dark mode only: the app's blue is too dim for text on near-black. */
   :root {
     --background: #F5F6FA;
     --surface: #FFFFFF;
