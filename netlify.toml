@@ -20,7 +20,10 @@
   #
   # Semantics are inverted: exit 0 means SKIP, non-zero means BUILD. git diff
   # --quiet exits 0 when there is no difference in those paths.
-  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- main archives netlify.toml"
+  #
+  # The command runs in the base directory (main/), so the paths are relative to it. Written from the repo
+  # root ("main archives netlify.toml") they matched nothing and every deploy was skipped.
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- . ../archives ../netlify.toml"
 
 [build.environment]
   NODE_VERSION = "20"
