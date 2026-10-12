@@ -1,0 +1,70 @@
+---
+import Legal from '../../layouts/Legal.astro';
+
+const sections = [
+  {
+    heading: 'Using Decorna',
+    body: [
+      `Decorna is an app by <strong>Muhammad Asad</strong> that creates AI redesigns of spaces from your photos. By using it you agree to these terms.
+       Apple's standard Licensed Application End User License Agreement also applies, and where the two differ, Apple's governs the app licence itself.`,
+      `Use it only with photos you own or have the right to use, and not to create anything unlawful, deceptive or harmful. I may limit or end access for misuse.`,
+    ],
+  },
+  {
+    heading: 'Credits, plans and purchases',
+    body: [
+      `New users get 3 free credits. One redesign uses one credit. <strong>Decorna Pro</strong> is a subscription (weekly, monthly or yearly) that adds credits each period,
+       removes the watermark on saved and shared images, and unlocks extras such as alternate app icons. Credit packs can be bought separately.`,
+      `Purchases are made through your Apple Account and billed by Apple. Subscriptions renew automatically until you cancel at least 24 hours before the end of the period.
+       Manage or cancel them in iOS Settings, your name, Subscriptions. Refunds are handled by Apple under its own policy.`,
+      `Unused credits from a period do not carry over unless the app says they do. If a redesign fails on my side, the credit is returned.`,
+    ],
+  },
+  {
+    heading: 'About the results',
+    body: [
+      `Redesigns are produced by AI. They can be inaccurate, can differ from the real space, and are not architectural, structural or safety advice.
+       Check anything that matters, such as measurements or load-bearing changes, with a qualified professional before acting on it.`,
+      `You keep ownership of your photos. You may use the redesigns you create for your own purposes, including commercial ones, subject to the law and to these terms.
+       I do not guarantee that a result is unique, since similar inputs can produce similar images.`,
+    ],
+  },
+  {
+    heading: 'Your account',
+    body: [
+      `You are responsible for your sign-in details and for activity on your account. You can delete your account any time from Profile, Account, Delete Account.
+       How your data is handled is explained in the <a href="/decorna/privacy/">Privacy Policy</a>.`,
+    ],
+  },
+  {
+    heading: 'Availability and changes',
+    body: [
+      `Decorna depends on third-party services and may be unavailable, slow or changed without notice. I may update the app, its features and these terms.
+       Continuing to use the app after a change means you accept it.`,
+    ],
+  },
+  {
+    heading: 'Liability',
+    body: [
+      `Decorna is provided as is. To the extent the law allows, I am not liable for indirect or consequential loss, or for decisions you make based on a redesign.
+       Nothing here limits rights you have under consumer law that cannot be limited.`,
+    ],
+  },
+  {
+    heading: 'Contact',
+    body: [
+      `Write to <a href="mailto:m.asad.chatthaa@gmail.com">m.asad.chatthaa@gmail.com</a> or use Profile, Support &amp; Feedback in the app.`,
+    ],
+  },
+];
+---
+
+<Legal
+  title="Decorna Terms of Service"
+  description="The terms for using Decorna: credits, subscriptions, AI results and your account."
+  path="/decorna/terms/"
+  h1="Terms of Service"
+  meta="Last updated 11 October 2026"
+  intro="The short version: use your own photos, treat the redesigns as inspiration, and Apple handles the billing."
+  sections={sections}
+/>

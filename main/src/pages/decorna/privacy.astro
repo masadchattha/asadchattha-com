@@ -1,0 +1,89 @@
+---
+import Legal from '../../layouts/Legal.astro';
+
+const sections = [
+  {
+    heading: 'Who this is from',
+    body: [
+      `Decorna is built and run by <strong>Muhammad Asad</strong>. In this policy, "I" and "the app" mean Decorna and the person behind it.
+       You can reach me at <a href="mailto:m.asad.chatthaa@gmail.com">m.asad.chatthaa@gmail.com</a>.`,
+    ],
+  },
+  {
+    heading: 'What Decorna does with your data, feature by feature',
+    body: [
+      `<strong>Photos you take or choose.</strong> To redesign a space, the photo is sent over an encrypted connection to my server, then to an AI provider
+       (Google Gemini or OpenAI) that returns the redesigned image. A short check, which confirms the photo matches the category you picked, works the same way.
+       The photo is used only for that request. I do not keep your original photo on my servers, and I do not use your photos to train any model.
+       The finished image waits in private storage only until your device confirms it has arrived, so a dropped connection does not cost you a credit; it is then deleted.`,
+      `<strong>Your saved designs.</strong> Designs you save live on your device. They are not uploaded to my servers. Deleting the app, or choosing
+       Profile, Reset All Saved Data, removes them.`,
+      `<strong>Your account.</strong> You can use Decorna without one. If you sign in, with Apple or with an email address and a 6-digit code, I store your account id,
+       your email address (Apple may give me a private relay address instead), your name and profile photo if you add them, your credit balance and plan, and any invite code you
+       use or share. This is what lets your credits follow you to a new phone.`,
+      `<strong>Without an account.</strong> A random identifier is kept in your device's Keychain. It counts your free credits so that reinstalling the app does not reset them.
+       It is not linked to your name or contact details.`,
+      `<strong>Purchases.</strong> Subscriptions and credit packs are sold and billed by Apple. I use RevenueCat to confirm what you own. I receive your purchase history and a user id,
+       never your card or payment details.`,
+      `<strong>Usage and crash data.</strong> I use PostHog to see which parts of the app are used and to receive crash reports. That includes taps and screens, your app version,
+       device model, iOS version, language and plan, and your account id when you are signed in. It never includes your photos, your prompts, your email address or your name.`,
+      `<strong>Notifications.</strong> Decorna asks before sending notifications. If you agree, your device's push token is stored with your account so I can send them,
+       and removed when you sign out or delete the account. A notification that your redesign is ready is created on your device.`,
+      `<strong>Email.</strong> I send the 6-digit codes you ask for, and a short welcome, password-changed or account-deleted message, through a mail service (Resend). I do not send marketing email.`,
+      `<strong>If you write to me.</strong> The messages you send to support, and the app version and phone model in them, are used to answer you.`,
+    ],
+  },
+  {
+    heading: 'What I do not do',
+    body: [
+      `I do not sell your data. I do not show ads. I do not track you across other companies' apps or websites. I do not build a profile of you for anyone else.`,
+    ],
+  },
+  {
+    heading: 'Who else handles data for me',
+    body: [
+      `These services process data only to run the parts of Decorna described above:
+       Supabase (accounts, credits and the server that talks to the AI providers), Google Gemini and OpenAI (image generation), Apple (sign-in, purchases, notifications),
+       RevenueCat (purchase status), PostHog (usage and crash data) and Resend (email). Each handles data under its own terms and privacy policy.`,
+    ],
+  },
+  {
+    heading: 'Keeping it and deleting it',
+    body: [
+      `Account data is kept while your account exists. <strong>To delete it, open Profile, Account, Delete Account.</strong> That removes your account, credits and the records linked to
+       them from my servers. The deletion cannot be undone and cannot be requested twice for the same account.`,
+      `You can also ask me to delete or export your data, or correct it, by emailing <a href="mailto:m.asad.chatthaa@gmail.com">m.asad.chatthaa@gmail.com</a> from the address on the account.
+       Usage and crash data cannot be tied back to you after your account is deleted.`,
+    ],
+  },
+  {
+    heading: 'Permissions the app asks for',
+    body: [
+      `<strong>Camera</strong>, to photograph a room, exterior or garden. <strong>Photo library</strong>, to pick a photo and to save your redesign. <strong>Notifications</strong>, optional.
+       You can change any of these in iOS Settings.`,
+    ],
+  },
+  {
+    heading: 'Children',
+    body: [
+      `Decorna is not directed at children under 13, and I do not knowingly collect their data. If you believe a child has sent me data, write to me and I will delete it.`,
+    ],
+  },
+  {
+    heading: 'Changes to this policy',
+    body: [
+      `If I change what the app collects, I will update this page and its date, and tell you in the app when the change matters. The date above is the version in force.`,
+    ],
+  },
+];
+---
+
+<Legal
+  title="Decorna Privacy Policy"
+  description="What Decorna collects, why, who processes it, and how to delete it."
+  path="/decorna/privacy/"
+  h1="Privacy Policy"
+  meta="Last updated 11 October 2026"
+  intro="Decorna redesigns a space from your photo. This page says exactly what that involves, in plain words."
+  sections={sections}
+/>

@@ -1,0 +1,40 @@
+---
+import Legal from '../../layouts/Legal.astro';
+
+const subject = encodeURIComponent('Decorna Support');
+const sections = [
+  {
+    heading: 'Email me',
+    body: [
+      `<a href="mailto:m.asad.chatthaa@gmail.com?subject=${subject}">m.asad.chatthaa@gmail.com</a>. I read every message and usually reply within a few days.
+       In the app, Profile, Support &amp; Feedback opens an email with your app version and phone model filled in, which makes a problem much quicker to find.`,
+    ],
+  },
+  {
+    heading: 'Common questions',
+    body: [
+      `<strong>I bought Pro or credits and do not see them.</strong> Open Profile and tap Restore Purchases. If you are signed in, make sure it is the same account you bought with.`,
+      `<strong>A redesign failed or never arrived.</strong> A failed redesign gives the credit back. If the app was closed mid-way, reopen it: the Archive shows the pending design and finishes it.`,
+      `<strong>How do I cancel my subscription?</strong> In iOS Settings, tap your name, then Subscriptions, then Decorna. Apple handles the cancellation and any refund request.`,
+      `<strong>How do I delete my account and data?</strong> Profile, Account, Delete Account. To remove only the designs saved on your phone, use Profile, Reset All Saved Data. Details are in the <a href="/decorna/privacy/">Privacy Policy</a>.`,
+      `<strong>My credits did not move to a new phone.</strong> Sign in on the new phone with the same account. Credits used without an account stay with that device.`,
+    ],
+  },
+  {
+    heading: 'Report a problem',
+    body: [
+      `Send what you were doing, what you expected, and what happened, ideally with a screenshot. Please do not send passwords or payment details.`,
+    ],
+  },
+];
+---
+
+<Legal
+  title="Decorna Support"
+  description="Get help with Decorna: contact, purchases, credits and deleting your account."
+  path="/decorna/support/"
+  h1="Support"
+  meta="Decorna for iPhone and iPad"
+  intro="Something not working, or a question? Here is how to reach me and the answers people ask for most."
+  sections={sections}
+/>
